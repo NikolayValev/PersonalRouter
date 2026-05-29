@@ -1,5 +1,10 @@
 @import "tw-animate-css";
 
+/*
+ * Font wiring. next/font (app/layout.tsx) exposes --font-sans (Inter) and
+ * --font-serif (Playfair Display) on <body>. The design-system reads its
+ * display/body fonts from --vde-font-*.
+ */
 :root {
   --font-family-sans: var(--font-sans);
   --font-family-mono: "Geist Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
@@ -10,4 +15,89 @@
 
 body {
   font-family: var(--font-sans);
+}
+
+/*
+ * --- Brand palette overrides ---
+ * Imported AFTER @nikolayvalev/design-system/styles/public.css, so these win.
+ * Two namespaces are kept in sync:
+ *   --background/--foreground/... -> Tailwind utilities via @theme inline
+ *   --vde-color-*                 -> design-system components (Button/Card/Layout)
+ * Accent moves off the default shadcn blue to a warm terracotta, and the
+ * grayscale neutrals are warmed slightly. public.css ships no dark values for
+ * the --vde-color-* tokens, so we add them here too (otherwise cards/buttons
+ * stay light-on-dark).
+ */
+:root {
+  /* Tailwind-utility namespace (warm neutrals + terracotta) */
+  --background: oklch(0.992 0.004 75);
+  --foreground: oklch(0.21 0.012 55);
+  --card: oklch(1 0.003 75);
+  --card-foreground: oklch(0.21 0.012 55);
+  --popover: oklch(1 0.003 75);
+  --popover-foreground: oklch(0.21 0.012 55);
+  --primary: oklch(0.59 0.14 40);
+  --primary-foreground: oklch(0.985 0.01 75);
+  --secondary: oklch(0.96 0.01 70);
+  --secondary-foreground: oklch(0.27 0.012 55);
+  --muted: oklch(0.96 0.008 70);
+  --muted-foreground: oklch(0.52 0.018 55);
+  --accent: oklch(0.59 0.14 40);
+  --accent-foreground: oklch(0.985 0.01 75);
+  --border: oklch(0.9 0.011 65);
+  --input: oklch(0.9 0.011 65);
+  --ring: oklch(0.59 0.14 40);
+
+  /* Design-system namespace (terracotta accent + warm neutrals) */
+  --vde-color-background: hsl(40 33% 99%);
+  --vde-color-foreground: hsl(28 14% 14%);
+  --vde-color-surface: hsl(40 33% 99.5%);
+  --vde-color-surface-foreground: hsl(28 14% 14%);
+  --vde-color-accent: hsl(16 62% 50%);
+  --vde-color-accent-foreground: hsl(38 40% 98%);
+  --vde-color-secondary: hsl(38 24% 94%);
+  --vde-color-secondary-foreground: hsl(28 20% 18%);
+  --vde-color-muted: hsl(38 22% 95%);
+  --vde-color-muted-foreground: hsl(28 9% 42%);
+  --vde-color-border: hsl(36 22% 88%);
+  --vde-color-input: hsl(36 22% 88%);
+  --vde-color-ring: hsl(16 62% 50%);
+  --vde-shadow-ambient: 0 1px 2px hsl(28 30% 20% / 0.07);
+}
+
+.dark {
+  /* Tailwind-utility namespace */
+  --background: oklch(0.175 0.008 55);
+  --foreground: oklch(0.96 0.006 75);
+  --card: oklch(0.205 0.009 55);
+  --card-foreground: oklch(0.96 0.006 75);
+  --popover: oklch(0.205 0.009 55);
+  --popover-foreground: oklch(0.96 0.006 75);
+  --primary: oklch(0.67 0.15 42);
+  --primary-foreground: oklch(0.18 0.01 55);
+  --secondary: oklch(0.27 0.012 55);
+  --secondary-foreground: oklch(0.96 0.006 75);
+  --muted: oklch(0.27 0.012 55);
+  --muted-foreground: oklch(0.72 0.012 65);
+  --accent: oklch(0.67 0.15 42);
+  --accent-foreground: oklch(0.18 0.01 55);
+  --border: oklch(0.29 0.012 55);
+  --input: oklch(0.29 0.012 55);
+  --ring: oklch(0.67 0.15 42);
+
+  /* Design-system namespace (public.css ships none for dark) */
+  --vde-color-background: hsl(30 10% 10%);
+  --vde-color-foreground: hsl(40 28% 95%);
+  --vde-color-surface: hsl(30 9% 13%);
+  --vde-color-surface-foreground: hsl(40 28% 95%);
+  --vde-color-accent: hsl(18 72% 57%);
+  --vde-color-accent-foreground: hsl(28 30% 10%);
+  --vde-color-secondary: hsl(30 8% 20%);
+  --vde-color-secondary-foreground: hsl(40 28% 95%);
+  --vde-color-muted: hsl(30 8% 20%);
+  --vde-color-muted-foreground: hsl(35 12% 68%);
+  --vde-color-border: hsl(30 8% 24%);
+  --vde-color-input: hsl(30 8% 24%);
+  --vde-color-ring: hsl(18 72% 57%);
+  --vde-shadow-ambient: 0 1px 2px hsl(0 0% 0% / 0.4);
 }

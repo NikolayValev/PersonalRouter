@@ -1,99 +1,82 @@
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
-import { Button } from "@/components/design-system/components/Button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ProjectCard } from "@/components/project-card"
+import { SiteFooter } from "@/components/site-footer"
 import { audienceList } from "@/lib/audiences"
 import { featuredProjects } from "@/lib/projects"
 
 export default function HomePage() {
   return (
-    <div className="min-h-dvh bg-background text-foreground">
-      <header className="border-b border-border/70">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 md:px-6">
-          <div>
-            <p className="font-serif text-lg">Nikolay Valev</p>
-            <p className="text-xs text-muted-foreground">Software Engineer - Technical Consultant</p>
-          </div>
-          <div className="flex items-center gap-6">
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
+      <header className="border-b border-border/60">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 md:px-6">
+          <p className="font-serif text-lg">Nikolay Valev</p>
+          <div className="flex items-center gap-5">
             <nav className="hidden items-center gap-5 text-sm text-muted-foreground sm:flex">
-              <Link href="/work" className="hover:text-foreground">Work</Link>
+              <Link href="/recruiters" className="transition-colors hover:text-foreground">Recruiters</Link>
+              <Link href="/engineers" className="transition-colors hover:text-foreground">Engineers</Link>
+              <Link href="/work" className="transition-colors hover:text-foreground">Work</Link>
             </nav>
             <ThemeToggle />
           </div>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 md:px-6 md:py-14">
-        <div className="w-full">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14 md:px-6 md:py-24">
+        {/* Hero */}
+        <section className="max-w-3xl">
+          <div className="mb-6 h-px w-16 bg-[var(--vde-color-accent)]" />
+          <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl">
+            Nikolay Valev
+          </h1>
+          <p className="mt-5 max-w-xl text-base text-foreground/80 md:text-lg">
+            Software engineer building full-stack web apps with TypeScript, React, and Next.js — and shipping
+            side projects end to end.
+          </p>
+        </section>
 
-          {/* Audience router */}
-          <div className="mb-8 text-center md:mb-14">
-            <h1 className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">Choose your path</h1>
-            <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground md:text-base">
-              One audience per page. No mixed messaging.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+        {/* Audience entry */}
+        <section className="mt-16 md:mt-24">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Start here</h2>
+          <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
             {audienceList.map((audience) => (
-              <Card key={audience.slug} className="h-full">
-                <CardHeader>
-                  <CardTitle className="font-serif text-2xl">{audience.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{audience.subtitle}</p>
-                </CardHeader>
-
-                <CardContent className="flex h-full flex-col gap-5">
-                  <ul className="flex-1 space-y-2 text-sm text-foreground/80">
-                    {audience.hero.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-
-                  <div className="space-y-2">
-                    <Link href={audience.localPath} className="block">
-                      <Button className="w-full">Open local page</Button>
-                    </Link>
-                    <p className="text-xs text-muted-foreground">
-                      Continue to {audience.externalUrl.replace("https://", "")} from there.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link key={audience.slug} href={audience.localPath} className="group block">
+                <Card className="h-full transition-colors group-hover:border-[var(--vde-color-accent)]">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between font-serif text-2xl">
+                      {audience.title}
+                      <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-[var(--vde-color-accent)]" />
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">{audience.subtitle}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-foreground/75">{audience.hero.summary}</p>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
+        </section>
 
-          {/* Featured work */}
-          <div className="mt-20 md:mt-28">
-            <div className="mb-6 flex items-baseline justify-between">
-              <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Work</h2>
-              <Link href="/work" className="text-sm text-muted-foreground hover:text-foreground">
-                View all →
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-              {featuredProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
-              ))}
-            </div>
+        {/* Featured work */}
+        <section className="mt-20 md:mt-28">
+          <div className="mb-6 flex items-baseline justify-between">
+            <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Selected work</h2>
+            <Link href="/work" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+              View all →
+            </Link>
           </div>
-
-        </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+            {featuredProjects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </section>
       </main>
 
-      <footer className="mt-16 border-t border-border/70 py-5">
-        <div className="mx-auto flex w-full max-w-7xl justify-center gap-8 px-4 text-sm text-muted-foreground md:px-6">
-          <Link href="https://github.com/nikolayvalev" className="hover:text-foreground" target="_blank" rel="noreferrer">
-            GitHub
-          </Link>
-          <Link href="https://linkedin.com/in/nikolayvalev" className="hover:text-foreground" target="_blank" rel="noreferrer">
-            LinkedIn
-          </Link>
-          <Link href="mailto:hello@nikolayvalev.com" className="hover:text-foreground">
-            Email
-          </Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

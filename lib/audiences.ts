@@ -1,11 +1,10 @@
-export type AudienceSlug = "recruiters" | "engineers" | "clients"
+export type AudienceSlug = "recruiters" | "engineers"
 
 export interface AudienceConfig {
   slug: AudienceSlug
   title: string
   subtitle: string
   localPath: string
-  externalUrl: string
   hero: {
     eyebrow: string
     heading: string
@@ -16,161 +15,81 @@ export interface AudienceConfig {
     title: string
     points: string[]
   }>
-  cta: {
-    primaryLabel: string
-    primaryNote: string
-    secondaryLabel: string
-  }
 }
 
 export const audiences: Record<AudienceSlug, AudienceConfig> = {
   recruiters: {
     slug: "recruiters",
-    title: "Recruiters",
-    subtitle: "Evaluating fit for a role",
+    title: "For recruiters",
+    subtitle: "Resume, skills, and the projects worth a look",
     localPath: "/recruiters",
-    externalUrl: "https://recruiters.nikolayvalev.com",
     hero: {
-      eyebrow: "Hiring signal",
-      heading: "Fast role-fit review without guesswork",
+      eyebrow: "Quick read",
+      heading: "The short version, built to scan",
       summary:
-        "This page is a short decision surface. It tells you what kind of problems I solve, how I work with teams, and when to move to the full recruiter-focused site.",
+        "A condensed view of what I do and where I'm headed. The full resume is on this page, and the projects below are the ones I'd point to first.",
       highlights: [
-        "Scope and impact at product and platform layers",
-        "Hiring constraints: level, domain, and collaboration model",
-        "Clear handoff to resume details and role-specific proof",
+        "Full-stack web work with TypeScript, React, and Next.js",
+        "Shipping side projects end to end, from idea to deployed",
+        "Early-career and actively leveling up toward senior",
       ],
     },
     sections: [
       {
-        title: "What You Can Validate Quickly",
+        title: "What I bring",
         points: [
-          "Delivery range: product features, platform reliability, and technical leadership.",
-          "Communication style: direct written decisions, clear tradeoff framing, low noise.",
-          "Ownership level: from execution-heavy contributions to cross-team technical direction.",
+          "Comfortable owning a feature from data model to UI.",
+          "I write clearly and keep decisions easy to follow.",
+          // TODO: replace with your real strongest 2-3 selling points
+          "I learn fast and ask for the context I'm missing rather than guessing.",
         ],
       },
       {
-        title: "How I Operate In Teams",
+        title: "How I work",
         points: [
-          "I optimize for sustained delivery over heroics.",
-          "I de-risk roadmap work by making assumptions explicit early.",
-          "I keep architecture discussions grounded in user and business impact.",
-        ],
-      },
-      {
-        title: "When To Continue",
-        points: [
-          "Move to the recruiter site if you need detailed work history.",
-          "Use the full profile for role matching, availability, and compensation context.",
-          "If the opening requires hybrid product and infrastructure ownership, continue now.",
+          "Small, reviewable changes over big risky drops.",
+          "I'd rather ship something honest and iterate than over-promise.",
+          // TODO: tailor to how you actually like to collaborate
+          "Direct, low-drama communication.",
         ],
       },
     ],
-    cta: {
-      primaryLabel: "Continue to recruiter profile",
-      primaryNote: "Full resume, role alignment, and hiring context.",
-      secondaryLabel: "Back to router",
-    },
   },
   engineers: {
     slug: "engineers",
-    title: "Engineers",
-    subtitle: "Assessing technical depth",
+    title: "For engineers",
+    subtitle: "How I build, and a few things I think are cool",
     localPath: "/engineers",
-    externalUrl: "https://engineers.nikolayvalev.com",
     hero: {
-      eyebrow: "Technical signal",
-      heading: "Architecture and execution, with explicit tradeoffs",
+      eyebrow: "Technical read",
+      heading: "How I build, with the tradeoffs left in",
       summary:
-        "This page is for peers who want to evaluate engineering quality. It highlights system design posture, implementation discipline, and where to review deeper technical material.",
+        "For people who want to look under the hood. Below is how I approach building things, plus notes on a few projects where the interesting decisions live.",
       highlights: [
-        "Production constraints considered before abstractions",
-        "Decision logs that explain why, not only what",
-        "Consistent attention to reliability, readability, and changeability",
+        "Boring, well-understood tools first; complexity only when it earns its keep",
+        "Deterministic, testable cores where it matters (seeded sims, token systems)",
+        "Readable code and reversible changes over cleverness",
       ],
     },
     sections: [
       {
-        title: "Engineering Priorities",
+        title: "How I build",
         points: [
-          "Prefer boring, well-understood building blocks where they meet the requirement.",
-          "Use complexity only when it buys measurable resilience or velocity.",
-          "Keep interfaces stable and internal mechanics replaceable.",
+          "Reach for the simplest thing that meets the requirement, then harden it.",
+          "Keep interfaces stable and the messy internals swappable.",
+          "Lean on types to make wrong states hard to represent.",
         ],
       },
       {
-        title: "Delivery Mechanics",
+        title: "What I'm sharpening",
         points: [
-          "Small, reviewable increments with clear rollback boundaries.",
-          "Testing strategy centered on behavior and failure modes, not coverage theater.",
-          "Operational readiness treated as part of done, not post-launch cleanup.",
-        ],
-      },
-      {
-        title: "Where To Dive Deeper",
-        points: [
-          "Continue to the engineer site for project writeups and architecture notes.",
-          "Review examples of how product constraints shaped implementation choices.",
-          "Use the deeper content when you need code-level confidence, not surface claims.",
+          // TODO: swap in what you're actually learning right now
+          "Deeper systems work: performance, data modeling, and testing strategy.",
+          "Writing more about the why behind decisions, not just the what.",
         ],
       },
     ],
-    cta: {
-      primaryLabel: "Continue to engineering profile",
-      primaryNote: "Architecture notes, project detail, and technical writing.",
-      secondaryLabel: "Back to router",
-    },
-  },
-  clients: {
-    slug: "clients",
-    title: "Clients",
-    subtitle: "Hiring for consulting outcomes",
-    localPath: "/clients",
-    externalUrl: "https://clients.nikolayvalev.com",
-    hero: {
-      eyebrow: "Engagement signal",
-      heading: "Consulting built around outcomes, not activity",
-      summary:
-        "This page helps you decide if a consulting engagement makes sense. It outlines problem fit, engagement structure, and what to expect from collaboration.",
-      highlights: [
-        "Outcome-oriented scope definition and execution plans",
-        "Direct communication cadence with clear accountability",
-        "Pragmatic decisions that balance speed, quality, and future cost",
-      ],
-    },
-    sections: [
-      {
-        title: "Best-Fit Engagements",
-        points: [
-          "Product teams needing senior execution plus technical direction.",
-          "Early-stage systems that need stabilization without heavyweight process.",
-          "Complex delivery where scope and architecture need to evolve together.",
-        ],
-      },
-      {
-        title: "Working Model",
-        points: [
-          "Start with constraints, risks, and success criteria before implementation.",
-          "Translate strategy into weekly deliverables with visible progress.",
-          "Provide concise written updates so decisions remain traceable.",
-        ],
-      },
-      {
-        title: "When To Continue",
-        points: [
-          "Continue to the client site for services, engagement options, and contact flow.",
-          "Use that page when you are evaluating budget, timeline, and fit.",
-          "If you need a partner who can ship while shaping direction, continue now.",
-        ],
-      },
-    ],
-    cta: {
-      primaryLabel: "Continue to client profile",
-      primaryNote: "Services, engagement models, and direct contact.",
-      secondaryLabel: "Back to router",
-    },
   },
 }
 
-export const audienceList = [audiences.recruiters, audiences.engineers, audiences.clients]
+export const audienceList = [audiences.recruiters, audiences.engineers]

@@ -11,8 +11,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
   title: "Nikolay Valev",
-  description: "Software Engineer - Technical Consultant",
-  generator: "v0.app",
+  description: "Software engineer building full-stack web apps with TypeScript, React, and Next.js.",
   icons: {
     icon: [
       {
