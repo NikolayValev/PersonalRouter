@@ -1,0 +1,6 @@
+{
+  "mcpUrl": "https://designsystem.nikolayvalev.com/mcp",
+  "installRoot": "components/design-system",
+  "tokenProfile": "public",
+  "generatedBy": "@nikolayvalev/design-system"
+}

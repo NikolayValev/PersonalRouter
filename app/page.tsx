@@ -1,87 +1,97 @@
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
+import { Button } from "@/components/design-system/components/Button"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { ProjectCard } from "@/components/project-card"
+import { audienceList } from "@/lib/audiences"
+import { featuredProjects } from "@/lib/projects"
 
 export default function HomePage() {
-  const audiences = [
-    {
-      title: "Recruiters",
-      subtitle: "Evaluating me for a role",
-      bullets: ["Resume, scope, impact", "Availability and role fit"],
-      href: "https://recruiters.nikolayvalev.com",
-    },
-    {
-      title: "Engineers",
-      subtitle: "Assessing my work",
-      bullets: ["Architecture, writing, decisions", "Open-source and side projects"],
-      href: "https://engineers.nikolayvalev.com",
-    },
-    {
-      title: "Clients",
-      subtitle: "Hiring me for consulting",
-      bullets: ["Services and past engagements", "Process and contact"],
-      href: "https://clients.nikolayvalev.com",
-    },
-  ]
-
   return (
-    <div className="min-h-dvh flex flex-col bg-background">
-      <main className="flex-1 flex items-center justify-center px-4 py-6 md:px-6 md:py-12">
-        <div className="w-full max-w-7xl">
-          <div className="text-center mb-8 md:mb-20 space-y-1 md:space-y-2">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight">Nikolay Valev</h1>
-            <p className="text-sm md:text-lg text-muted-foreground font-normal">
-              Software Engineer · Technical Consultant
+    <div className="min-h-dvh bg-background text-foreground">
+      <header className="border-b border-border/70">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 md:px-6">
+          <div>
+            <p className="font-serif text-lg">Nikolay Valev</p>
+            <p className="text-xs text-muted-foreground">Software Engineer - Technical Consultant</p>
+          </div>
+          <div className="flex items-center gap-6">
+            <nav className="hidden items-center gap-5 text-sm text-muted-foreground sm:flex">
+              <Link href="/work" className="hover:text-foreground">Work</Link>
+            </nav>
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 md:px-6 md:py-14">
+        <div className="w-full">
+
+          {/* Audience router */}
+          <div className="mb-8 text-center md:mb-14">
+            <h1 className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">Choose your path</h1>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground md:text-base">
+              One audience per page. No mixed messaging.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 lg:gap-16">
-            {audiences.map((audience) => (
-              <Link key={audience.title} href={audience.href} className="group block">
-                <div className="border border-border bg-card rounded-lg p-5 md:p-8 h-full flex flex-col transition-all duration-200 hover:border-foreground/20 hover:shadow-sm">
-                  <div className="space-y-1.5 md:space-y-3 mb-4 md:mb-6">
-                    <h2 className="text-xl md:text-2xl font-serif font-normal">{audience.title}</h2>
-                    <p className="text-xs md:text-sm text-muted-foreground">{audience.subtitle}</p>
-                  </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+            {audienceList.map((audience) => (
+              <Card key={audience.slug} className="h-full">
+                <CardHeader>
+                  <CardTitle className="font-serif text-2xl">{audience.title}</CardTitle>
+                  <p className="text-sm text-muted-foreground">{audience.subtitle}</p>
+                </CardHeader>
 
-                  <ul className="space-y-1.5 md:space-y-2 mb-4 md:mb-8 flex-1 text-xs md:text-sm text-foreground/70">
-                    {audience.bullets.map((bullet, index) => (
-                      <li key={index}>{bullet}</li>
+                <CardContent className="flex h-full flex-col gap-5">
+                  <ul className="flex-1 space-y-2 text-sm text-foreground/80">
+                    {audience.hero.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
                     ))}
                   </ul>
 
-                  <Button className="w-full bg-foreground text-background hover:bg-foreground/90 font-normal text-sm">
-                    Visit →
-                  </Button>
-                </div>
-              </Link>
+                  <div className="space-y-2">
+                    <Link href={audience.localPath} className="block">
+                      <Button className="w-full">Open local page</Button>
+                    </Link>
+                    <p className="text-xs text-muted-foreground">
+                      Continue to {audience.externalUrl.replace("https://", "")} from there.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
+
+          {/* Featured work */}
+          <div className="mt-20 md:mt-28">
+            <div className="mb-6 flex items-baseline justify-between">
+              <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Work</h2>
+              <Link href="/work" className="text-sm text-muted-foreground hover:text-foreground">
+                View all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+              {featuredProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} />
+              ))}
+            </div>
+          </div>
+
         </div>
       </main>
 
-      <footer className="py-4 md:py-8">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex justify-center gap-6 md:gap-8 text-xs md:text-sm text-muted-foreground/50">
-            <Link
-              href="https://github.com/nikolayvalev"
-              className="hover:text-muted-foreground transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </Link>
-            <Link
-              href="https://linkedin.com/in/nikolayvalev"
-              className="hover:text-muted-foreground transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </Link>
-            <Link href="mailto:hello@nikolayvalev.com" className="hover:text-muted-foreground transition-colors">
-              Email
-            </Link>
-          </div>
+      <footer className="mt-16 border-t border-border/70 py-5">
+        <div className="mx-auto flex w-full max-w-7xl justify-center gap-8 px-4 text-sm text-muted-foreground md:px-6">
+          <Link href="https://github.com/nikolayvalev" className="hover:text-foreground" target="_blank" rel="noreferrer">
+            GitHub
+          </Link>
+          <Link href="https://linkedin.com/in/nikolayvalev" className="hover:text-foreground" target="_blank" rel="noreferrer">
+            LinkedIn
+          </Link>
+          <Link href="mailto:hello@nikolayvalev.com" className="hover:text-foreground">
+            Email
+          </Link>
         </div>
       </footer>
     </div>

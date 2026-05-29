@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "design-system": {
+      "transport": "streamable-http",
+      "url": "https://designsystem.nikolayvalev.com/mcp"
+    }
+  }
+}
