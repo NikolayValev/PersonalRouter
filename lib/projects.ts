@@ -27,8 +27,8 @@ export const projects: Project[] = [
     status: "live",
     year: 2026,
     tags: ["TypeScript", "Phaser 3", "Capacitor", "Vite"],
-    liveUrl: "https://www.idledungeonlife.nikolayvalev.com",
-    sourceUrl: "https://github.com/nikolayvalev/IdleDungeonLife",
+    liveUrl: "https://dungeonlife.nikolayvalev.com/",
+    sourceUrl: "https://github.com/NikolayValev/IdleDungeonLife",
     featured: true,
     recruiterHighlight: true,
     engineerNote:
@@ -43,13 +43,27 @@ export const projects: Project[] = [
     status: "live",
     year: 2026,
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
-    liveUrl: "https://www.mandate-zero.nikolayvalev.com",
-    sourceUrl: "https://github.com/nikolayvalev/mandate-zero",
+    liveUrl: "https://mandate-zero.nikolayvalev.com/",
+    sourceUrl: "https://github.com/NikolayValev/mandate-zero",
     featured: true,
     recruiterHighlight: true,
     engineerNote:
       // TODO: refine with the real interesting bits (seeding, replay, i18n approach)
       "Fully deterministic: the same seed always produces the same run, which makes the simulation reproducible and testable. Adds multilingual support and optional auth on top without compromising that determinism.",
+  },
+  {
+    slug: "quitting-smoking-tracker",
+    name: "Quitting Smoking Tracker",
+    // TODO: refine the description with the real feature set
+    description: "A tracker that helps you quit smoking — logging streaks, milestones, and progress over time.",
+    type: "app",
+    status: "live",
+    year: 2026, // TODO: correct year
+    tags: ["TypeScript", "React"], // TODO: real stack
+    liveUrl: "https://smoking.nikolayvalev.com/",
+    sourceUrl: "https://github.com/NikolayValev/quitting-smoking-tracker",
+    featured: true,
+    recruiterHighlight: true,
   },
   {
     slug: "design-system",
