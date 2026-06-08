@@ -12,6 +12,7 @@ const FILTER_LABELS: Record<Filter, string> = {
   game: "Games",
   library: "Libraries",
   app: "Apps",
+  finance: "Finance",
 }
 
 interface WorkGridProps {

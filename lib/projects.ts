@@ -20,6 +20,20 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "design-system",
+    name: "Design System",
+    description: "Token-driven React component library with intent-based recipes, multiple visual themes, and Tailwind CSS presets.",
+    type: "library",
+    status: "live",
+    year: 2026,
+    tags: ["TypeScript", "React", "Tailwind", "Storybook"],
+    liveUrl: "https://designsystem.nikolayvalev.com/",
+    featured: true,
+    engineerNote:
+      // TODO: refine — this site itself consumes the package
+      "A token-driven component library: components never hardcode colors, they read CSS custom properties, so a whole theme is a swap of variables. This very site is built on it.",
+  },
+  {
     slug: "idle-dungeon-life",
     name: "Idle Dungeon Life",
     description: "Mobile-first idle game with progressive dungeon mechanics, playthrough archiving, and cross-platform builds via Capacitor.",
@@ -52,34 +66,6 @@ export const projects: Project[] = [
       "Fully deterministic: the same seed always produces the same run, which makes the simulation reproducible and testable. Adds multilingual support and optional auth on top without compromising that determinism.",
   },
   {
-    slug: "quitting-smoking-tracker",
-    name: "Quitting Smoking Tracker",
-    // TODO: refine the description with the real feature set
-    description: "A tracker that helps you quit smoking — logging streaks, milestones, and progress over time.",
-    type: "app",
-    status: "live",
-    year: 2025,
-    tags: ["TypeScript", "React"], // TODO: real stack
-    liveUrl: "https://smoking.nikolayvalev.com/",
-    sourceUrl: "https://github.com/NikolayValev/quitting-smoking-tracker",
-    featured: true,
-    recruiterHighlight: true,
-  },
-  {
-    slug: "design-system",
-    name: "Design System",
-    description: "Token-driven React component library with intent-based recipes, multiple visual themes, and Tailwind CSS presets.",
-    type: "library",
-    status: "live",
-    year: 2026,
-    tags: ["TypeScript", "React", "Tailwind", "Storybook"],
-    liveUrl: "https://designsystem.nikolayvalev.com/",
-    featured: true,
-    engineerNote:
-      // TODO: refine — this site itself consumes the package
-      "A token-driven component library: components never hardcode colors, they read CSS custom properties, so a whole theme is a swap of variables. This very site is built on it.",
-  },
-  {
     slug:"bondviz",
     name:"Bond Visualizer",
     description:"Live U.S. Treasury data to visualize the yield curve and price bonds — present value, duration, convexity and parallel-shift scenarios, with hand-rolled D3 charts.",
@@ -103,6 +89,20 @@ export const projects: Project[] = [
     tags: ["RAG", "Obsidian","Elastic Search", "LLM"],
     liveUrl:"https://secondbrain.nikolayvalev.com/",
     sourceUrl:"https://github.com/NikolayValev/second-brain-ui",
+    featured: true,
+    recruiterHighlight: true,
+  },
+  {
+    slug: "quitting-smoking-tracker",
+    name: "Quitting Smoking Tracker",
+    // TODO: refine the description with the real feature set
+    description: "A tracker that helps you quit smoking — logging streaks, milestones, and progress over time.",
+    type: "app",
+    status: "live",
+    year: 2025,
+    tags: ["TypeScript", "React"], // TODO: real stack
+    liveUrl: "https://smoking.nikolayvalev.com/",
+    sourceUrl: "https://github.com/NikolayValev/quitting-smoking-tracker",
     featured: true,
     recruiterHighlight: true,
   },

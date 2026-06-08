@@ -42,19 +42,21 @@ export interface Resume {
 export const resume: Resume = {
   name: "Nikolay Valev",
   title: "Software Engineer",
-  // TODO: real location (or "Remote" / "City, Country")
-  location: "TODO: City, Country",
+  location: "New York City, USA",
   summary:
     "Software engineer focused on full-stack web development with TypeScript, React, and Next.js. I build and ship side projects end to end and I'm actively working toward senior-level depth.",
   skills: [
     {
       label: "Languages",
-      // TODO: trim to what you'd defend in an interview
-      items: ["TypeScript", "JavaScript", "HTML", "CSS", "SQL"],
+      items: ["TypeScript", "JavaScript", "HTML", "CSS", "Python", "SQL"],
     },
     {
-      label: "Frameworks & tools",
-      items: ["React", "Next.js", "Node.js", "Tailwind CSS", "Vite", "Git"],
+      label: "Frameworks",
+      items: ["Vue.js","React", "Next.js", "Node.js", "Tailwind CSS",],
+    },
+    {
+      label: "Tools",
+      items: [ "Vite","Webpack","Jest","Playwright","Git"],
     },
     {
       label: "Platforms",
@@ -63,14 +65,11 @@ export const resume: Resume = {
   ],
   experience: [
     {
-      // TODO: replace this entire entry with your real role(s)
-      role: "TODO: Job Title",
-      org: "TODO: Company",
-      period: "TODO: Start – End",
+      role: "Software Developer",
+      org: "Medscape",
+      period: "2022 – Now",
       location: "TODO: Location / Remote",
       bullets: [
-        "TODO: a concrete thing you built or shipped, with impact if you can quantify it.",
-        "TODO: a second bullet — scope, ownership, or a measurable result.",
       ],
     },
     {
@@ -85,10 +84,9 @@ export const resume: Resume = {
   ],
   education: [
     {
-      // TODO: replace with real education, or remove this entry
-      credential: "TODO: Degree / Program",
-      institution: "TODO: Institution",
-      period: "TODO: Years",
+      credential: "B.S. in Computer Science and minor in Mathematics",
+      institution: "Ramapo College of New Jersey",
+      period: "2018-2022",
     },
   ],
   links: [
