@@ -1,4 +1,4 @@
-export type ProjectType = "game" | "library" | "app"
+export type ProjectType = "game" | "library" | "app" | "finance"
 export type ProjectStatus = "live" | "demo" | "wip"
 
 export interface Project {
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     description: "A tracker that helps you quit smoking — logging streaks, milestones, and progress over time.",
     type: "app",
     status: "live",
-    year: 2026, // TODO: correct year
+    year: 2025,
     tags: ["TypeScript", "React"], // TODO: real stack
     liveUrl: "https://smoking.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/quitting-smoking-tracker",
@@ -73,11 +73,38 @@ export const projects: Project[] = [
     status: "live",
     year: 2026,
     tags: ["TypeScript", "React", "Tailwind", "Storybook"],
-    liveUrl: "https://www.design-system.nikolayvalev.com",
+    liveUrl: "https://designsystem.nikolayvalev.com/",
     featured: true,
     engineerNote:
       // TODO: refine — this site itself consumes the package
       "A token-driven component library: components never hardcode colors, they read CSS custom properties, so a whole theme is a swap of variables. This very site is built on it.",
+  },
+  {
+    slug:"bondviz",
+    name:"Bond Visualizer",
+    description:"Live U.S. Treasury data to visualize the yield curve and price bonds — present value, duration, convexity and parallel-shift scenarios, with hand-rolled D3 charts.",
+    type:"finance",
+    status: "live",
+    year : 2026,
+    tags: ["TypeScript", "React", "Tailwind","Python", "Pandas", "Matplotlib", "CPP"],
+    liveUrl:"https://bondviz.nikolayvalev.com/",
+    sourceUrl:"https://github.com/NikolayValev/bondviz",
+    featured: true,
+    recruiterHighlight: true,
+
+  },
+  {
+    slug:"secondbrain",
+    name:"Second Brain",
+    description:"My personal knowledge management system powered by AI. Organize, search, and query your notes with intelligence.",
+    type:"finance",
+    status: "live",
+    year : 2026,
+    tags: ["RAG", "Obsidian","Elastic Search", "LLM"],
+    liveUrl:"https://secondbrain.nikolayvalev.com/",
+    sourceUrl:"https://github.com/NikolayValev/second-brain-ui",
+    featured: true,
+    recruiterHighlight: true,
   },
 ]
 
