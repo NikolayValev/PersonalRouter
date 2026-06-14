@@ -24,7 +24,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-14 md:px-6 md:py-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-12 md:px-6 md:py-20">
         {/* Hero */}
         <section className="max-w-3xl">
           <div className="mb-6 h-px w-16 bg-[var(--vde-color-accent)]" />
@@ -38,7 +38,7 @@ export default function HomePage() {
         </section>
 
         {/* Audience entry */}
-        <section className="mt-16 md:mt-24">
+        <section className="mt-14 md:mt-20">
           <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Start here</h2>
           <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
             {audienceList.map((audience) => (
@@ -61,7 +61,7 @@ export default function HomePage() {
         </section>
 
         {/* Featured work */}
-        <section className="mt-20 md:mt-28">
+        <section className="mt-16 md:mt-24">
           <div className="mb-6 flex items-baseline justify-between">
             <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Selected work</h2>
             <Link href="/work" className="text-sm text-muted-foreground transition-colors hover:text-foreground">

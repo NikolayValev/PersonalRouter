@@ -21,74 +21,40 @@ export const audiences: Record<AudienceSlug, AudienceConfig> = {
   recruiters: {
     slug: "recruiters",
     title: "For recruiters",
-    subtitle: "Resume, skills, and the projects worth a look",
+    subtitle: "The resume, the stack, and the projects worth a look.",
     localPath: "/recruiters",
     hero: {
-      eyebrow: "Quick read",
-      heading: "The short version, built to scan",
+      eyebrow: "Resume + selected projects",
+      heading: "Ships full-stack, end to end.",
       summary:
-        "A condensed view of what I do and where I'm headed. The full resume is on this page, and the projects below are the ones I'd point to first.",
+        "Web apps in TypeScript, React, and Next.js — and a habit of taking side projects from idea to deployed.",
       highlights: [
-        "Full-stack web work with TypeScript, React, and Next.js",
-        "Shipping side projects end to end, from idea to deployed",
-        "Early-career and actively leveling up toward senior",
+        "Owns features end to end — data model to deployed UI.",
+        "Six projects live in production, from idle games to a bond-pricing terminal.",
+        "Software developer at Medscape since 2022.",
       ],
     },
-    sections: [
-      {
-        title: "What I bring",
-        points: [
-          "Comfortable owning a feature from data model to UI.",
-          "I write clearly and keep decisions easy to follow.",
-          // TODO: replace with your real strongest 2-3 selling points
-          "I learn fast and ask for the context I'm missing rather than guessing.",
-        ],
-      },
-      {
-        title: "How I work",
-        points: [
-          "Small, reviewable changes over big risky drops.",
-          "I'd rather ship something honest and iterate than over-promise.",
-          // TODO: tailor to how you actually like to collaborate
-          "Direct, low-drama communication.",
-        ],
-      },
-    ],
+    // Intentionally empty: the resume and selected-projects grid below carry the
+    // detail, so the hero stays scannable instead of repeating itself.
+    sections: [],
   },
   engineers: {
     slug: "engineers",
     title: "For engineers",
-    subtitle: "How I build, and a few things I think are cool",
+    subtitle: "How I build, and the decisions I'd defend in review.",
     localPath: "/engineers",
     hero: {
-      eyebrow: "Technical read",
-      heading: "How I build, with the tradeoffs left in",
-      summary:
-        "For people who want to look under the hood. Below is how I approach building things, plus notes on a few projects where the interesting decisions live.",
+      eyebrow: "Architecture notes",
+      heading: "How I build, tradeoffs included.",
+      summary: "Boring, well-understood tools by default; complexity only when it earns its keep.",
       highlights: [
-        "Boring, well-understood tools first; complexity only when it earns its keep",
-        "Deterministic, testable cores where it matters (seeded sims, token systems)",
-        "Readable code and reversible changes over cleverness",
+        "Deterministic, testable cores where it matters — seeded sims, token systems.",
+        "Stable interfaces, swappable internals; types that make wrong states unrepresentable.",
+        "Readable, reversible changes over cleverness.",
       ],
     },
-    sections: [
-      {
-        title: "How I build",
-        points: [
-          "Reach for the simplest thing that meets the requirement, then harden it.",
-          "Keep interfaces stable and the messy internals swappable.",
-          "Lean on types to make wrong states hard to represent.",
-        ],
-      },
-      {
-        title: "What I'm sharpening",
-        points: [
-          // TODO: swap in what you're actually learning right now
-          "Deeper systems work: performance, data modeling, and testing strategy.",
-          "Writing more about the why behind decisions, not just the what.",
-        ],
-      },
-    ],
+    // The "Under the hood" project notes below do the talking — no filler sections.
+    sections: [],
   },
 }
 
