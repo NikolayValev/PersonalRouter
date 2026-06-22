@@ -52,6 +52,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     `/projects/${project.slug}/02.svg`,
   ]
   const overview = project.overview ?? project.description
+  const isPortrait = project.imageOrientation === "portrait"
 
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
@@ -122,12 +123,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Cover */}
-        <div className="mt-10 overflow-hidden rounded-md border border-border/60">
+        <div
+          className={
+            isPortrait
+              ? "mt-10 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-md border border-border/60 bg-muted/40 p-6"
+              : "mt-10 overflow-hidden rounded-md border border-border/60"
+          }
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={cover}
             alt={`${project.name} — cover`}
-            className="block aspect-[16/10] w-full object-cover"
+            className={
+              isPortrait
+                ? "block h-full w-auto max-w-full rounded-sm object-contain shadow-sm"
+                : "block aspect-[16/10] w-full object-cover"
+            }
             loading="lazy"
           />
         </div>
@@ -193,14 +204,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {screenshots.length > 0 && (
           <section className="mt-14">
             <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Screens</h2>
-            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
+            <div
+              className={
+                isPortrait
+                  ? "mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 lg:grid-cols-4"
+                  : "mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6"
+              }
+            >
               {screenshots.map((src, i) => (
                 <div key={src} className="overflow-hidden rounded-md border border-border/60">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={src}
                     alt={`${project.name} — screen ${i + 1}`}
-                    className="block aspect-[16/10] w-full object-cover"
+                    className={
+                      isPortrait
+                        ? "block aspect-[9/19] w-full object-cover"
+                        : "block aspect-[16/10] w-full object-cover"
+                    }
                     loading="lazy"
                   />
                 </div>
