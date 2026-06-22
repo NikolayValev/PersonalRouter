@@ -13,21 +13,23 @@ export const metadata: Metadata = {
   title: "Nikolay Valev",
   description: "Software engineer building full-stack web apps with TypeScript, React, and Next.js.",
   icons: {
+    // The ?v= query busts browser/CDN caches when the icon art changes but the
+    // filenames stay the same. Bump it whenever the monogram is updated.
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/icon-light-32x32.png?v=2",
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/icon-dark-32x32.png?v=2",
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/icon.svg?v=2",
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/apple-icon.png?v=2",
   },
 }
 
