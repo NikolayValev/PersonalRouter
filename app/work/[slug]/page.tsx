@@ -6,6 +6,7 @@ import { Button } from "@/components/design-system/components/Button"
 import { Layout } from "@/components/design-system/components/Layout"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
+import { Logo } from "@/components/logo"
 import { getProject, projects, type Project } from "@/lib/projects"
 
 interface ProjectPageProps {
@@ -59,8 +60,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <header className="border-b border-border/60">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 md:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/" className="font-serif text-lg transition-opacity hover:opacity-80">
-              Nikolay Valev
+            <Link href="/" className="text-lg transition-opacity hover:opacity-80">
+              <Logo />
             </Link>
             <nav className="hidden items-center gap-5 text-sm text-muted-foreground sm:flex">
               <Link href="/recruiters" className="transition-colors hover:text-foreground">Recruiters</Link>

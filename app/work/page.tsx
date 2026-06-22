@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { WorkGrid } from "@/components/work-grid"
 import { SiteFooter } from "@/components/site-footer"
+import { Logo } from "@/components/logo"
 import { projects } from "@/lib/projects"
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function WorkPage() {
       <header className="border-b border-border/60">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 md:px-6">
           <div className="flex items-center gap-6">
-            <Link href="/" className="font-serif text-lg transition-opacity hover:opacity-80">Nikolay Valev</Link>
+            <Link href="/" className="text-lg transition-opacity hover:opacity-80"><Logo /></Link>
             <nav className="hidden items-center gap-5 text-sm text-muted-foreground sm:flex">
               <Link href="/recruiters" className="transition-colors hover:text-foreground">Recruiters</Link>
               <Link href="/engineers" className="transition-colors hover:text-foreground">Engineers</Link>

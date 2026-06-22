@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-sy
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ProjectCard } from "@/components/project-card"
 import { SiteFooter } from "@/components/site-footer"
+import { Logo } from "@/components/logo"
 import { audienceList } from "@/lib/audiences"
 import { featuredProjects } from "@/lib/projects"
 
@@ -12,7 +13,7 @@ export default function HomePage() {
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <header className="border-b border-border/60">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 md:px-6">
-          <p className="font-serif text-lg">Nikolay Valev</p>
+          <Logo className="text-lg" />
           <div className="flex items-center gap-5">
             <nav className="hidden items-center gap-5 text-sm text-muted-foreground sm:flex">
               <Link href="/recruiters" className="transition-colors hover:text-foreground">Recruiters</Link>

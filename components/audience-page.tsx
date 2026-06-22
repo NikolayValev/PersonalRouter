@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Layout } from "@/components/design-system/components/Layout"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
+import { Logo } from "@/components/logo"
 import type { AudienceConfig } from "@/lib/audiences"
 
 interface AudienceShellProps {
@@ -18,8 +19,9 @@ export function AudienceShell({ children }: AudienceShellProps) {
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <header className="border-b border-border/60">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 md:px-6">
-          <Link href="/" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-            ← Nikolay Valev
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+            <span aria-hidden>←</span>
+            <Logo />
           </Link>
           <ThemeToggle />
         </div>
