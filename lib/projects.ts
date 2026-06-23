@@ -27,6 +27,8 @@ export interface Project {
    * only to point somewhere else.
    */
   cover?: string
+  /** Image shown on the project card. Falls back to `cover`. */
+  cardImage?: string
   screenshots?: string[]
   /**
    * Aspect treatment for the cover + gallery imagery. Defaults to "landscape"
@@ -90,6 +92,7 @@ export const projects: Project[] = [
     liveUrl: "https://dungeonlife.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/IdleDungeonLife",
     cover: "/projects/idle-dungeon-life/02-early-chapel.png",
+    cardImage: "/projects/idle-dungeon-life/card.png",
     screenshots: [
       "/projects/idle-dungeon-life/01-intro.png",
       "/projects/idle-dungeon-life/02-early-chapel.png",
