@@ -204,29 +204,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             screenshots, then add a click-to-zoom lightbox here (deferred for now). */}
         {screenshots.length > 0 && (
           <section className="mt-14">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Screens</h2>
-            <div
-              className={
-                isPortrait
-                  ? "mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 lg:grid-cols-4"
-                  : "mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6"
-              }
-            >
-              {screenshots.map((src, i) => (
-                <div key={src} className="overflow-hidden rounded-md border border-border/60">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt={`${project.name} — screen ${i + 1}`}
-                    className={
-                      isPortrait
-                        ? "block aspect-[9/19] w-full object-cover"
-                        : "block aspect-[16/10] w-full object-cover"
-                    }
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Screens</h2>
+              <span className="text-xs text-muted-foreground">Scroll →</span>
+            </div>
+            {/* Horizontally scrollable strip with snap points. The negative margin
+                + padding lets cards bleed to the page edge while staying aligned. */}
+            <div className="-mx-4 mt-5 overflow-x-auto px-4 pb-3 md:-mx-6 md:px-6 [scrollbar-width:thin]">
+              <ul className="flex snap-x snap-mandatory gap-4 md:gap-6">
+                {screenshots.map((src, i) => (
+                  <li
+                    key={src}
+                    className="shrink-0 snap-start overflow-hidden rounded-md border border-border/60"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt={`${project.name} — screen ${i + 1}`}
+                      className={
+                        isPortrait
+                          ? "block h-[420px] w-auto object-cover md:h-[520px]"
+                          : "block h-[240px] w-auto object-cover md:h-[300px]"
+                      }
+                      loading="lazy"
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         )}

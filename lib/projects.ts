@@ -89,7 +89,7 @@ export const projects: Project[] = [
     tags: ["TypeScript", "Phaser 3", "Vite", "Capacitor", "Vitest", "Playwright", "Vercel"],
     liveUrl: "https://dungeonlife.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/IdleDungeonLife",
-    cover: "/projects/idle-dungeon-life/01-intro.png",
+    cover: "/projects/idle-dungeon-life/02-early-chapel.png",
     screenshots: [
       "/projects/idle-dungeon-life/01-intro.png",
       "/projects/idle-dungeon-life/02-early-chapel.png",
