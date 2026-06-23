@@ -15,6 +15,31 @@
 
 body {
   font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Brand-tinted text selection. */
+::selection {
+  background-color: var(--vde-color-accent);
+  color: var(--vde-color-accent-foreground);
+}
+
+/* Consistent, accessible focus ring across links and controls. */
+:focus-visible {
+  outline: 2px solid var(--vde-color-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 /*

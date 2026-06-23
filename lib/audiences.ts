@@ -27,11 +27,11 @@ export const audiences: Record<AudienceSlug, AudienceConfig> = {
       eyebrow: "Resume + selected projects",
       heading: "Ships full-stack, end to end.",
       summary:
-        "Web apps in TypeScript, React, and Next.js — and a habit of taking side projects from idea to deployed.",
+        "Web apps in TypeScript, Vue, React, and Next.js — and a habit of taking side projects from idea to deployed.",
       highlights: [
         "Owns features end to end — data model to deployed UI.",
-        "Six projects live in production, from idle games to a bond-pricing terminal.",
-        "Software developer at Medscape since 2022.",
+        "Six projects live in production, from an idle RPG to a bond-pricing terminal.",
+        "Frontend developer at Medscape since 2022, on a design system spanning a dozen sites.",
       ],
     },
     // Intentionally empty: the resume and selected-projects grid below carry the

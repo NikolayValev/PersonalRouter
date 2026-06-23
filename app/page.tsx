@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/design-system/components/Button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ProjectCard } from "@/components/project-card"
@@ -36,6 +37,19 @@ export default function HomePage() {
             Software engineer building full-stack web apps with TypeScript, React, and Next.js — and shipping
             side projects end to end.
           </p>
+          <div className="mt-7 flex flex-wrap gap-2.5">
+            <Link href="/work">
+              <Button size="sm" className="gap-1.5">
+                View work
+                <ArrowRight className="size-3.5" />
+              </Button>
+            </Link>
+            <Link href="mailto:hello@nikolayvalev.com">
+              <Button variant="outline" size="sm">
+                Get in touch
+              </Button>
+            </Link>
+          </div>
         </section>
 
         {/* Audience entry */}

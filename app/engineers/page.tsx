@@ -69,7 +69,7 @@ export default function EngineersPage() {
       )}
 
       <div className="mt-12">
-        <Layout heading="Something cool">
+        <Layout heading="How this site is built">
           <p className="text-sm leading-relaxed text-foreground/80 md:text-base">
             This whole site runs on a design system I built where components never hardcode colors — they read
             CSS custom properties. The terracotta accent and warm neutrals you&apos;re looking at are a handful

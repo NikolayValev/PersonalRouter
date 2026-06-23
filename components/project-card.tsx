@@ -10,19 +10,16 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const cardImage = project.cardImage ?? project.cover
-  const isPortrait = project.imageOrientation === "portrait"
 
   return (
     <Card className="group flex h-full flex-col overflow-hidden transition-colors hover:border-[var(--vde-color-accent)]">
       {cardImage && (
-        <div aria-hidden className="overflow-hidden border-b border-border/60">
+        <div aria-hidden className="overflow-hidden border-b border-border/60 bg-muted/30">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={cardImage}
             alt=""
-            className={`block w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03] ${
-              isPortrait ? "aspect-[5/7]" : "aspect-[16/10]"
-            }`}
+            className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             loading="lazy"
           />
         </div>
