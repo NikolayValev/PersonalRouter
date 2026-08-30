@@ -114,6 +114,5 @@ export const resume: Resume = {
     { label: "LinkedIn", href: "https://linkedin.com/in/nikolayvalev" },
     { label: "Email", href: "mailto:hello@nikolayvalev.com" },
   ],
-  // Drop a resume PDF in /public and set its path here, e.g. "/nikolay-valev-resume.pdf"
-  pdfUrl: null,
+  pdfUrl: "/nikolay-valev-resume.pdf",
 }
