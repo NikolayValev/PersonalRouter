@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Playfair_Display, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { PostHogProvider } from "@/components/posthog-provider"
 import "@nikolayvalev/design-system/styles/public.css"
 import "./globals.css"
 
@@ -41,10 +42,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
-        <Analytics />
+        <PostHogProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+          <Analytics />
+        </PostHogProvider>
       </body>
     </html>
   )
