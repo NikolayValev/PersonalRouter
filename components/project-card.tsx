@@ -3,6 +3,7 @@ import { ArrowUpRight, ExternalLink, Github } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
 import { Button } from "@/components/design-system/components/Button"
 import type { Project } from "@/lib/projects"
+import { TrackedProjectLink } from "@/components/tracked-project-link"
 
 interface ProjectCardProps {
   project: Project
@@ -56,20 +57,29 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {(project.liveUrl || project.sourceUrl) && (
           <div className="relative z-10 flex gap-2">
             {project.liveUrl && (
-              <Link href={project.liveUrl} target="_blank" rel="noreferrer" className="flex-1">
+              <TrackedProjectLink
+                href={project.liveUrl}
+                project={project.slug}
+                destination="live"
+                className="flex-1"
+              >
                 <Button size="sm" className="w-full gap-1.5">
                   <ExternalLink className="size-3.5" />
                   View
                 </Button>
-              </Link>
+              </TrackedProjectLink>
             )}
             {project.sourceUrl && (
-              <Link href={project.sourceUrl} target="_blank" rel="noreferrer">
+              <TrackedProjectLink
+                href={project.sourceUrl}
+                project={project.slug}
+                destination="source"
+              >
                 <Button variant="outline" size="sm" className="gap-1.5">
                   <Github className="size-3.5" />
                   Source
                 </Button>
-              </Link>
+              </TrackedProjectLink>
             )}
           </div>
         )}
