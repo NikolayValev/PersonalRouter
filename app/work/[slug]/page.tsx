@@ -7,7 +7,7 @@ import { Layout } from "@/components/design-system/components/Layout"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { SiteFooter } from "@/components/site-footer"
 import { Logo } from "@/components/logo"
-import { getProject, projects, type Project } from "@/lib/projects"
+import { getProject, projects, STATUS_LABELS, TYPE_LABELS } from "@/lib/projects"
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
@@ -29,25 +29,12 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 }
 
-const STATUS_LABELS: Record<Project["status"], string> = {
-  live: "Live",
-  demo: "Demo",
-  wip: "Work in progress",
-}
-
-const TYPE_LABELS: Record<Project["type"], string> = {
-  game: "Game",
-  library: "Library",
-  app: "App",
-  finance: "Finance",
-}
-
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params
   const project = getProject(slug)
   if (!project) notFound()
 
-  const cover = project.cover ?? `/projects/${project.slug}/cover.svg`
+  const cover = project.cover
   const screenshots = project.screenshots ?? [
     `/projects/${project.slug}/01.svg`,
     `/projects/${project.slug}/02.svg`,
@@ -123,26 +110,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
-        {/* Cover */}
-        <div
-          className={
-            isPortrait
-              ? "mt-10 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-md border border-border/60 bg-muted/40 p-6"
-              : "mt-10 overflow-hidden rounded-md border border-border/60"
-          }
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={cover}
-            alt={`${project.name} — cover`}
+        {/* Cover. A project with no imagery (Ralph has no UI) simply skips it
+            rather than reserving a large empty panel. */}
+        {cover ? (
+          <div
             className={
               isPortrait
-                ? "block h-full w-auto max-w-full rounded-sm object-contain shadow-sm"
-                : "block aspect-[16/10] w-full object-cover"
+                ? "mt-10 flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-md border border-border/60 bg-muted/40 p-6"
+                : "mt-10 overflow-hidden rounded-md border border-border/60"
             }
-            loading="lazy"
-          />
-        </div>
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={cover}
+              alt={`${project.name} — cover`}
+              className={
+                isPortrait
+                  ? "block h-full w-auto max-w-full rounded-sm object-contain shadow-sm"
+                  : "block aspect-[16/10] w-full object-cover"
+              }
+              loading="lazy"
+            />
+          </div>
+        ) : null}
 
         {/* Body */}
         <div className="mt-12 grid gap-8 md:grid-cols-3 md:gap-10">

@@ -7,7 +7,7 @@ import { ProjectCard } from "@/components/project-card"
 import { SiteFooter } from "@/components/site-footer"
 import { Logo } from "@/components/logo"
 import { audienceList } from "@/lib/audiences"
-import { featuredProjects } from "@/lib/projects"
+import { featuredProjects, HOME_PROJECT_COUNT } from "@/lib/projects"
 
 export default function HomePage() {
   return (
@@ -83,8 +83,8 @@ export default function HomePage() {
               View all →
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-            {featuredProjects.map((project) => (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6">
+            {featuredProjects.slice(0, HOME_PROJECT_COUNT).map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
           </div>

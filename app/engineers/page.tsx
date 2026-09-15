@@ -4,7 +4,7 @@ import { ExternalLink, Github } from "lucide-react"
 import { AudienceShell, AudienceIntro } from "@/components/audience-page"
 import { Layout } from "@/components/design-system/components/Layout"
 import { audiences } from "@/lib/audiences"
-import { projects } from "@/lib/projects"
+import { projects, TYPE_LABELS } from "@/lib/projects"
 
 export const metadata: Metadata = {
   title: "Engineers | Nikolay Valev",
@@ -21,11 +21,26 @@ export default function EngineersPage() {
       {annotatedProjects.length > 0 && (
         <div className="mt-16">
           <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Under the hood</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            The decisions worth defending in review, one project at a time.
+          </p>
           <div className="mt-6 space-y-4">
-            {annotatedProjects.map((project) => (
+            {annotatedProjects.map((project, index) => (
               <Layout key={project.slug}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                  <h3 className="font-serif text-xl">{project.name}</h3>
+                  <div className="flex items-baseline gap-3">
+                    {/* Running index: gives the stack a spine without adding chrome. */}
+                    <span
+                      aria-hidden
+                      className="text-xs tabular-nums text-[var(--vde-color-accent)]"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-serif text-xl">{project.name}</h3>
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                      {TYPE_LABELS[project.type]} · {project.year}
+                    </span>
+                  </div>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     {project.liveUrl && (
                       <Link
@@ -51,8 +66,8 @@ export default function EngineersPage() {
                     )}
                   </div>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/80">{project.engineerNote}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
+                <p className="mt-3 text-sm leading-relaxed text-foreground/80 md:pl-9">{project.engineerNote}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5 md:pl-9">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
