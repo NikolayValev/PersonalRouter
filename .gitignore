@@ -10,3 +10,8 @@ tsconfig.tsbuildinfo
 # Local env files (never commit; PostHog key lives here)
 .env
 .env*.local
+
+# Impeccable runtime state (the design record itself is committed)
+.impeccable/live/sessions/
+.impeccable/live/roots.json
+.impeccable/live/inject-journal.json
