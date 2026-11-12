@@ -78,6 +78,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <span>{TYPE_LABELS[project.type]}</span>
             <span aria-hidden>·</span>
             <span>{project.year}</span>
+            {project.active && (
+              <>
+                <span aria-hidden>·</span>
+                <span className="text-[var(--vde-color-accent)]">Currently active</span>
+              </>
+            )}
           </div>
           <h1 className="mt-4 font-serif text-4xl tracking-tight md:text-6xl">{project.name}</h1>
           <p className="mt-4 text-base text-foreground/80 md:text-lg">{project.tagline ?? project.description}</p>
@@ -174,7 +180,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <dl className="mt-5 space-y-2.5 text-sm">
                 <div className="flex justify-between gap-3">
                   <dt className="text-muted-foreground">Status</dt>
-                  <dd className="text-foreground/85">{STATUS_LABELS[project.status]}</dd>
+                  <dd className="text-foreground/85">
+                    {STATUS_LABELS[project.status]}
+                    {project.active && " · Active"}
+                  </dd>
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="text-muted-foreground">Type</dt>

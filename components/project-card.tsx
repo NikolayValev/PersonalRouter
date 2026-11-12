@@ -44,6 +44,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <span>{STATUS_LABELS[project.status]}</span>
             <span aria-hidden className="text-border">/</span>
             <span>{TYPE_LABELS[project.type]}</span>
+            {project.active && (
+              <span className="rounded-sm border border-[var(--vde-color-accent)]/50 px-1.5 py-px text-[10px] tracking-[0.12em] text-[var(--vde-color-accent)]">
+                Active
+              </span>
+            )}
             <span className="ml-auto tabular-nums">{project.year}</span>
           </div>
 
