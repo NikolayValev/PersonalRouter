@@ -1,54 +1,37 @@
 export type ProjectType = "game" | "library" | "app" | "finance" | "tool"
-export type ProjectStatus = "live" | "demo" | "wip"
+export type ProjectStatus = "live" | "wip"
 
 export interface Project {
   slug: string
   name: string
-  /** Short, card-length blurb. */
+  /** One or two sentences for the card and the detail-page lede. */
   description: string
-  /** One line shown under the title on the project detail page (falls back to description). */
-  tagline?: string
-  /** 2–3 sentence "what & why" for the detail page (falls back to description). */
+  /** A short paragraph for the detail page. Falls back to description. */
   overview?: string
-  /** Punchy feature/decision bullets for the detail page. */
   highlights?: string[]
   type: ProjectType
   status: ProjectStatus
+  /** Being worked on right now. */
+  active?: boolean
   year: number
   tags: string[]
   liveUrl?: string
   sourceUrl?: string
-  /** A dedicated write-up / about page on the project's own site, if one exists. */
-  aboutUrl?: string
-  /**
-   * Detail-page imagery. Both default by convention to
-   * `/projects/<slug>/cover.svg` and `/projects/<slug>/01.svg`, `02.svg`,
-   * so dropping real screenshots in that folder is all it takes. Set these
-   * only to point somewhere else. A project with no imagery at all falls back
-   * to the typographic cover in <ProjectCover>.
-   */
+  /** Detail-page cover. Projects without one get a typographic panel. */
   cover?: string
-  /** Image shown on the project card. Falls back to `cover`. */
+  /** Card image. Falls back to cover. */
   cardImage?: string
   screenshots?: string[]
-  /**
-   * Aspect treatment for the cover + gallery imagery. Defaults to "landscape"
-   * (16/10, cropped to fill). Use "portrait" for tall phone screenshots so they
-   * render contained instead of being cropped to a sliver.
-   */
+  /** "portrait" for phone screenshots, so they are contained rather than cropped. */
   imageOrientation?: "landscape" | "portrait"
+  /** Shown on the home page and the recruiters page. */
   featured: boolean
-  /** Under active development right now; flagged on the card and detail page. */
-  active?: boolean
-  /** Surface this project in the recruiter "Selected projects" grid. */
-  recruiterHighlight?: boolean
-  /** A deeper technical note shown on /engineers. */
+  /** Implementation notes for /engineers. */
   engineerNote?: string
 }
 
 export const STATUS_LABELS: Record<ProjectStatus, string> = {
   live: "Live",
-  demo: "Demo",
   wip: "In progress",
 }
 
@@ -60,30 +43,25 @@ export const TYPE_LABELS: Record<ProjectType, string> = {
   tool: "Tooling",
 }
 
-/**
- * Ordered most-interesting-first: the home page shows the leading slice
- * (see HOME_PROJECT_COUNT), /work shows all of them.
- */
+/** Order matters: the home page shows the first HOME_PROJECT_COUNT featured projects. */
 export const projects: Project[] = [
   {
     slug: "agora",
     name: "Agora",
     description:
-      "A mobile app for reading the great philosophers yourself: primary texts, argument maps you build from them, a Socratic tutor that can't invent a quote, and spaced review.",
-    tagline: "Read the great philosophers yourself, with a tutor that questions you instead of answering for you.",
+      "Short philosophy sessions on Plato and the Stoics. Read the passage, map the argument, then defend it to a tutor that can only quote the real text.",
     overview:
-      "A mobile app for curious adults built around a ten-to-fifteen-minute loop: read a short public-domain passage, map its argument from a deck of claim cards, defend the map with a Socratic tutor, and let spaced review bring the ideas back before you forget them. The first track, Socrates & the Stoics, covers nine sessions from the Euthyphro to Marcus Aurelius. Under the hood it is local-first, with a sync protocol designed so it cannot conflict.",
+      "Each session takes ten to fifteen minutes. You read a public-domain translation, build an argument map from a deck of claim cards, and talk it through with a Socratic tutor. The cards then go into spaced review. The first track has nine sessions, from the Euthyphro to Marcus Aurelius. Built with Expo; the web version is live now.",
     highlights: [
-      "Read, map, defend, remember: one session loop over cited, paragraph-by-paragraph public-domain translations.",
-      "An argument-map grader that marks each placement like a tutor would: right, one step removed, misplaced, or not part of this argument.",
-      "A tutor that cannot show a fabricated quote: every quotation is checked against the cited passage on the server, repaired, re-cited, or removed before the learner sees it.",
-      "Adversarial evals in CI: a stand-in model that fabricates, misattributes, and leaks answers on purpose across 78 scenarios, with 0 unsafe replies shown.",
-      "Local-first on SQLite (native, or WebAssembly on the web) with offline support; replicated data is grow-only sets or last-writer-wins registers on a hybrid logical clock.",
-      "FSRS review state is never synced. Each device replays review events, so phones that reviewed offline converge on the same schedule.",
-      "Migrations, row-level security, and sync RPCs tested in PGlite as Supabase's authenticated role; about 210 tests in all.",
+      "The tutor quotes by citing a passage ID. The server checks every quote against that passage and repairs, re-cites, or removes it before the reader sees it.",
+      "An adversarial model in CI fabricates quotes and leaks answers on purpose across 78 scenarios. None of its unsafe replies reach the screen.",
+      "Works offline on SQLite, including in the browser via WebAssembly. Sync uses grow-only sets and last-writer-wins registers, so it cannot conflict.",
+      "Review schedules are never synced. Each device replays the review log, so two phones that studied offline end up with the same schedule.",
+      "About 210 tests, including the database migrations and row-level security run in PGlite.",
     ],
     type: "app",
     status: "live",
+    active: true,
     year: 2026,
     tags: ["Expo", "React Native", "TypeScript", "FastAPI", "Supabase", "SQLite", "Claude"],
     liveUrl: "https://agora.nikolayvalev.com/",
@@ -91,47 +69,26 @@ export const projects: Project[] = [
     cover: "/projects/agora/loop.png",
     screenshots: ["/projects/agora/loop.png", "/projects/agora/app.png", "/projects/agora/dark.png"],
     featured: true,
-    active: true,
-    recruiterHighlight: true,
     engineerNote:
-      "The tutor may only quote by citing a segment, and the server verifies every quotation against that text before the client renders it: exact, repaired to the translation's wording, re-cited, or stripped. It also blocks replies that give away a step the learner hasn't found, retrying once and then falling back to a scripted tutor. Data is local-first with a sync protocol that can't conflict: grow-only sets and LWW registers on a hybrid logical clock, two Postgres functions behind a per-user advisory lock, and FSRS state derived on each device by replaying review events. A seeded randomised test runs three devices with skewed clocks through offline periods and asserts they end identical.",
-  },
-  {
-    slug: "cultivator",
-    name: "Cultivator",
-    description: "A game built in Godot and exported to WebAssembly, playable in the browser.",
-    tagline: "A Godot game, playable in the browser.",
-    type: "game",
-    status: "live",
-    year: 2026,
-    tags: ["Godot", "WebAssembly", "Vercel"],
-    liveUrl: "https://cultivator.nikolayvalev.com/",
-    screenshots: [],
-    featured: true,
-    active: true,
+      "The model can only quote by citing a segment ID. Before a reply reaches the client, the server finds each quotation in the cited text and either keeps it, repairs it to the translation's wording, re-cites it, or strips it. Replies that give away a step the learner hasn't reached are retried once, then replaced by a scripted tutor. On the data side, every write goes to on-device SQLite first. Replicated tables are grow-only sets or last-writer-wins registers stamped with a hybrid logical clock, and review state is derived on each device from the event log rather than synced. A seeded randomised test runs three devices with skewed clocks through offline periods and checks that they converge.",
   },
   {
     slug: "idle-dungeon-life",
     name: "Idle Dungeon Life",
     description:
-      "An idle RPG where your adventurer ages in real time and dives ever-deeper dungeons until their lifespan runs out — death carries “legacy ash” into the next life.",
-    tagline: "Every character lives once.",
+      "An idle RPG where your adventurer ages in real time and keeps diving deeper until their lifespan runs out. Each death funds upgrades for the next life.",
     overview:
-      "An idle RPG where you send an adventurer into ancient dungeons; they age in real time, gather traits, and push deeper until their lifespan runs out. Death isn't a setback, it's progress — “legacy ash” carries across lives to fund permanent unlocks. The whole game runs on a pure, event-sourced reducer kept entirely separate from the Phaser presentation layer, so the same logic powers the game, an offline catch-up, a headless balance simulator, and the test suite.",
+      "You send an adventurer into a chain of sixteen dungeons. They age, pick up traits, and push deeper until they die of old age. What they earn carries over as “legacy ash” for permanent unlocks. It runs in the browser and as a mobile app through Capacitor.",
     highlights: [
-      "Lifespan-as-health: a run is one lifetime — the character ages through life stages and dies when vitality is spent, not from HP loss.",
-      "16 dungeons from the Abandoned Chapel down to The Wound, each deadlier than the last.",
-      "Three legacy paths — Holy, Abyss, and Knowledge — each with its own talent tree and multi-life perk line.",
-      "Traits surface and evolve as the character ages or alignment shifts; sub-characters unlock parallel lives after the final dungeon.",
-      "Offline progression with a welcome-back summary, plus a “Watch demo” button that auto-plays a full lifetime in a sandbox that never touches your save.",
-      "Pure, event-sourced reducer holds all game logic, fully decoupled from the Phaser presentation layer.",
-      "Deterministic seeded RNG — same seed + same events ⇒ same outcome — powering trustworthy offline catch-up and a headless balance simulator that runs the real logic across many seeds and strategies.",
-      "Versioned save format with field-by-field migration; 170+ Vitest unit tests and a Playwright e2e suite, with screenshots generated by Playwright driving the real game.",
+      "Health is lifespan. A run is one lifetime, and the character dies when it runs out, not from damage.",
+      "Three legacy paths, each with its own talent tree.",
+      "Offline progress is simulated on return, with a summary of what happened while you were away.",
+      "A “Watch demo” mode plays a full lifetime in a sandbox that never touches your save.",
     ],
     type: "game",
     status: "live",
     year: 2026,
-    tags: ["TypeScript", "Phaser 3", "Vite", "Capacitor", "Vitest", "Playwright", "Vercel"],
+    tags: ["TypeScript", "Phaser 3", "Vite", "Capacitor", "Vitest", "Playwright"],
     liveUrl: "https://dungeonlife.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/IdleDungeonLife",
     cover: "/projects/idle-dungeon-life/02-early-chapel.png",
@@ -148,108 +105,108 @@ export const projects: Project[] = [
     ],
     imageOrientation: "portrait",
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "All game logic lives in a single pure, event-sourced reducer kept entirely separate from the Phaser presentation layer, so it runs headless in Node. Deterministic seeded RNG (same seed + same events ⇒ same outcome) powers trustworthy offline catch-up and a headless balance simulator that exercises the real game across many seeds and strategies; a versioned save format migrates field-by-field so existing players never lose progress. Tested with 170+ Vitest unit tests plus a Playwright e2e suite that also drives the real game to generate screenshots.",
+      "All game logic is one pure, event-sourced reducer with no Phaser dependency, so it runs headless in Node. The RNG is seeded, which means the same seed and events always give the same result. That makes offline catch-up trustworthy and lets a balance simulator run the real game across many seeds and strategies. Saves are versioned and migrated field by field. There are 170+ Vitest unit tests and a Playwright suite, which also produces the screenshots on this page.",
   },
   {
     slug: "design-system",
     name: "Design System",
     description:
-      "A token-driven React component library: 12 OKLCH themes with hand-tuned light and dark palettes, shipped to npm alongside a hosted MCP server that lets AI agents install components.",
-    tagline: "One component set, twelve themes, and an MCP server so agents can install it themselves.",
+      "A React component library with twelve themes, published to npm with an MCP server so coding agents can install components. This site is built on it.",
     overview:
-      "A component library where nothing hardcodes color, type, or spacing — every component reads semantic CSS custom properties, so an entire visual theme is a swap of variables rather than a rewrite. Twelve curated “visions” across five families each ship a native light and dark palette, and a hosted Model Context Protocol server exposes the catalog so agents like Claude or Cursor can browse and install components directly. This site runs on it.",
+      "Components read every color, font, and spacing value from CSS variables, so a theme is a set of variables rather than a code change. There are twelve themes, each with its own light and dark palette. A hosted MCP server exposes the catalog, so Claude, Cursor, or Windsurf can find and install components directly.",
     highlights: [
-      "Tokens in OKLCH, a perceptually-uniform color space — semantic --vde-* variables with shadcn-compatible aliases.",
-      "12 curated visions across 5 families, each with a hand-tuned light and dark palette, switchable at runtime.",
-      "A hosted MCP server so Claude, Cursor, and Windsurf can browse, fetch, and install components without a human copying files.",
-      "Components read entirely from CSS variables, so identical markup re-skins instantly across visions.",
-      "TurboRepo + pnpm monorepo with Storybook visual-regression tests, semantic-versioned npm releases, and Terraform IaC.",
-      "Powers this very site, including the warm terracotta theme you're viewing.",
+      "Colors are defined in OKLCH, with aliases that match shadcn's variable names.",
+      "Twelve themes, each with a hand-tuned light and dark palette, switchable at runtime.",
+      "A hosted MCP server lets coding agents browse and install components.",
+      "Turborepo and pnpm monorepo with Storybook visual-regression tests and semver releases.",
     ],
     type: "library",
     status: "live",
     year: 2026,
-    tags: ["TypeScript", "React", "Tailwind", "Storybook", "TurboRepo", "MCP"],
+    tags: ["TypeScript", "React", "Tailwind", "Storybook", "Turborepo", "MCP"],
     liveUrl: "https://designsystem.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/design-system",
     cover: "/projects/design-system/card.png",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "A token-driven component library: components never hardcode colors, they read semantic CSS custom properties defined in OKLCH, so a whole theme is a swap of variables — twelve of them ship, each with a hand-tuned light and dark palette. Distribution is the interesting half: alongside the npm package, a hosted MCP server exposes the component catalog so coding agents can install components without a human copying files. This very site is built on it.",
+      "No component hardcodes a color. Everything reads semantic CSS variables defined in OKLCH, so switching between the twelve themes only swaps variables. Alongside the npm package, a hosted MCP server serves the component catalog so a coding agent can install components into a project. This site consumes the package and overrides a handful of variables for its own palette.",
   },
   {
-    slug: "ralph",
-    name: "Ralph",
-    description:
-      "An autonomous agent that picks up its own Linear tickets, ships one increment per run, and opens a pull request it is never allowed to merge.",
-    tagline: "An autonomous ticket agent, built brakes-first.",
-    overview:
-      "Ralph watches a Linear backlog for tickets labelled autonomous-eligible, wakes on a schedule, does exactly one increment of work, opens a pull request, and stops — leaving the PR in review for a human. The interesting engineering isn't the agent loop; it's everything constraining it: a preflight that refuses to run under the wrong credentials, a circuit breaker that halts the schedule after repeated failures, and a hard rule that it never merges and never deploys.",
-    highlights: [
-      "One increment per run: wake, pick a ticket, make a bounded change, open a PR, stop.",
-      "Never merges and never deploys — every run ends in review, on a branch, behind a human.",
-      "A circuit breaker trips the schedule after repeated failures instead of looping on a broken repo.",
-      "Preflight refuses to start under the wrong credentials, or with a test command that turns out to be a watcher — verified empirically rather than assumed.",
-      "Two-tier model routing: a local Ollama model triages cheaply before anything expensive runs.",
-      "Reports each tick to Slack, with inbound Socket Mode handlers for talking back to it.",
-      "Runs natively on Windows under Task Scheduler and Git Bash — no WSL, no second toolchain.",
-    ],
-    type: "tool",
-    status: "wip",
+    slug: "cultivator",
+    name: "Cultivator",
+    description: "A Godot game exported to WebAssembly. Plays in the browser.",
+    type: "game",
+    status: "live",
+    active: true,
     year: 2026,
-    tags: ["Python", "Claude Code", "Linear", "Slack", "Ollama", "GitHub"],
-    sourceUrl: "https://github.com/NikolayValev/Agentic-Ralph-runner",
+    tags: ["Godot", "WebAssembly"],
+    liveUrl: "https://cultivator.nikolayvalev.com/",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
-    engineerNote:
-      "An agent that writes code unsupervised is mostly a guardrail problem, so the design is brakes-first: one increment per run, a PR that is always left in review, and a hard prohibition on merging or deploying. A preflight verifies the environment empirically — credentials, tool flags, and a test command that must not be a watcher — and refuses to start rather than failing halfway; a circuit breaker stops the schedule after repeated failures instead of hammering a broken repo. Model spend is tiered, with a local Ollama model triaging before anything expensive runs.",
   },
   {
     slug: "bondviz",
     name: "Bond Visualizer",
     description:
-      "Live U.S. Treasury data to visualize the yield curve and price bonds — present value, duration, convexity, and parallel-shift scenarios, with hand-rolled D3 charts.",
-    tagline: "A fixed-income research terminal: live Treasury data, the yield curve, and bond math from scratch.",
+      "Plots the U.S. Treasury yield curve from live data and prices bonds: present value, duration, convexity, and parallel-shift scenarios.",
     overview:
-      "Pulls live U.S. Treasury data to visualize the yield curve and price bonds — present value, duration, convexity, and parallel-shift scenarios — with hand-rolled D3 charts. A fixed-income and markets research terminal built on continuous-compounding analytics.",
+      "A fixed-income research tool. It pulls live Treasury data, draws the yield curve, and prices bonds using continuous compounding. It also includes a portfolio view and a PCA breakdown of how the curve moves.",
     highlights: [
-      "Live U.S. Treasury data drives the yield curve in real time.",
-      "Bond pricing with present value, duration, convexity, and parallel-shift scenarios.",
-      "Portfolio view plus PCA on the curve's principal movements.",
-      "Hand-rolled D3 charts — no charting library.",
+      "Live Treasury data drives the yield curve.",
+      "Present value, duration, convexity, and parallel-shift scenarios.",
+      "Portfolio view and PCA on the curve's main movements.",
+      "Charts drawn directly in D3, without a charting library.",
     ],
     type: "finance",
     status: "live",
     year: 2026,
-    tags: ["TypeScript", "React", "Tailwind", "Python", "Pandas", "D3", "C++"],
+    tags: ["TypeScript", "React", "Python", "Pandas", "D3", "C++"],
     liveUrl: "https://bondviz.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/bondviz",
     cover: "/projects/bondviz/card.png",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "Bond math is hand-rolled on continuous-compounding analytics — present value, duration, convexity, and parallel-shift scenarios over live Treasury data — and every chart is drawn directly with D3 rather than a charting library, so the visualization stays exactly as expressive as the model.",
+      "The bond math is written by hand on continuous compounding: present value, duration, convexity, and parallel shifts over live Treasury data. The charts are drawn in D3 directly, so nothing in a charting library limits what the model can show.",
+  },
+  {
+    slug: "ralph",
+    name: "Ralph",
+    description:
+      "An agent that picks up Linear tickets on a schedule, makes one change per run, and opens a pull request. It is never allowed to merge.",
+    overview:
+      "Ralph watches a Linear backlog for tickets labelled autonomous-eligible. On each scheduled run it takes one ticket, makes one bounded change, opens a pull request, and stops. A human reviews and merges. Most of the code is about keeping it from doing damage when something goes wrong.",
+    highlights: [
+      "Never merges and never deploys. Every run ends with a PR waiting for review.",
+      "Checks credentials and tooling before starting, and refuses to run if anything is off.",
+      "A circuit breaker pauses the schedule after repeated failures.",
+      "A local Ollama model triages tickets before any paid model is called.",
+      "Posts each run to Slack. Runs on Windows under Task Scheduler, without WSL.",
+    ],
+    type: "tool",
+    status: "wip",
+    year: 2026,
+    tags: ["Python", "Claude Code", "Linear", "Slack", "Ollama"],
+    sourceUrl: "https://github.com/NikolayValev/Agentic-Ralph-runner",
+    screenshots: [],
+    featured: true,
+    engineerNote:
+      "The agent loop is simple. The work is in the limits around it: one change per run, a PR that always waits for a human, and no merge or deploy permissions. Before each run a preflight checks the credentials and tools and confirms the test command exits rather than watching. If anything fails, it doesn't start. After repeated failures a circuit breaker pauses the schedule. A local Ollama model does triage so the paid model is only called for real work.",
   },
   {
     slug: "quitting-smoking-tracker",
     name: "Quitting Smoking Tracker",
     description:
-      "A smoke-free companion: track your streak, hit health and savings milestones, and get through cravings — with a public demo that needs no sign-in.",
-    tagline: "A smoke-free companion: track streaks, hit milestones, and get through cravings.",
+      "Tracks your smoke-free streak, health and savings milestones, and helps with cravings. There's a public demo that needs no account.",
     overview:
-      "A tracker for quitting smoking — log your streak, celebrate milestones, and watch health and money recovered add up over time. Guided breathing exercises and urge-resistance steps help get you through cravings. It runs in two modes from one codebase: a read-only public demo seeded with 90 days of realistic data, and an authenticated mode where your own logs live in Postgres.",
+      "Log your streak and see the health and money you've recovered over time. When a craving hits, there are breathing exercises and step-by-step coping prompts. The same codebase runs a public demo with 90 days of seeded data and a signed-in mode backed by Postgres.",
     highlights: [
-      "A public demo at /demo — the full UI on seeded data, no account required.",
-      "Authenticated mode with per-user logs in Neon Postgres, isolated row by row.",
-      "Streak tracking with health and savings milestones over time.",
-      "Guided breathing exercises and step-by-step urge-resistance coping strategies.",
-      "Personalized onboarding, daily wellness tips, and milestone celebrations.",
+      "Public demo at /demo with the full interface on seeded data.",
+      "Signed-in mode stores each user's logs in Neon Postgres, behind Clerk.",
+      "Streaks, health milestones, and money saved.",
+      "Breathing exercises and coping steps for cravings.",
     ],
     type: "app",
     status: "live",
@@ -260,51 +217,45 @@ export const projects: Project[] = [
     cover: "/projects/quitting-smoking-tracker/card.png",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "One codebase serves two modes: a read-only public demo rendered from a seeded fixture so anyone can explore the full UI without an account, and an authenticated mode where logs are user-scoped rows in Neon Postgres behind Clerk. Keeping the demo a real render of the same components — rather than a screenshot tour — means the shared path stays honest, and the data layer is the only thing that swaps.",
+      "The demo and the real app share every component. Only the data source changes: a seeded fixture for /demo, user-scoped rows in Neon Postgres behind Clerk for signed-in users. That keeps the demo honest, since it is the product itself rather than a screenshot tour.",
   },
   {
     slug: "secondbrain",
     name: "Second Brain",
     description:
-      "An AI-powered personal knowledge base over an Obsidian vault — capture notes, search semantically, and ask questions answered from your own writing.",
-    tagline: "An AI-powered personal knowledge base — capture, search, and ask your own notes.",
+      "Search and ask questions over an Obsidian vault. Answers come from your own notes.",
     overview:
-      "A personal knowledge-management system powered by AI: capture notes to an inbox, search across everything, and ask questions that are answered from your own notes via retrieval-augmented generation over an Obsidian vault. A FastAPI service handles indexing and retrieval; the Next.js frontend is generated against its OpenAPI contract.",
+      "Capture notes to an inbox, search across everything, and ask questions answered from your own writing using retrieval over an Obsidian vault. A FastAPI service handles indexing and retrieval. The Next.js frontend's API client is generated from the service's OpenAPI schema.",
     highlights: [
-      "Ask your notes: a RAG pipeline answers questions from your own knowledge base.",
-      "Semantic search over an Obsidian vault, with embeddings stored in Postgres via pgvector.",
-      "Provider-agnostic by design — OpenAI, Anthropic, and Google models sit behind one interface.",
-      "Inbox-to-knowledge capture flow with a unified dashboard.",
-      "A typed frontend client generated from the backend's OpenAPI schema, so contract drift breaks CI instead of production.",
+      "Question answering over your own notes, with retrieval from the vault.",
+      "Semantic search with embeddings stored in Postgres via pgvector.",
+      "OpenAI, Anthropic, and Google models behind one interface.",
+      "Typed frontend client generated from the backend's OpenAPI schema.",
     ],
     type: "app",
     status: "live",
     year: 2026,
-    tags: ["Next.js", "FastAPI", "pgvector", "RAG", "Obsidian", "OpenAPI"],
+    tags: ["Next.js", "FastAPI", "pgvector", "Obsidian", "OpenAPI"],
     liveUrl: "https://secondbrain.nikolayvalev.com/",
     sourceUrl: "https://github.com/NikolayValev/second-brain-ui",
     cover: "/projects/secondbrain/card.png",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "A FastAPI indexing and retrieval service with embeddings in Postgres via pgvector, fronted by a Next.js app whose API client is generated from the backend's OpenAPI schema — so a contract change breaks the build rather than a user's request. LLM providers sit behind a single interface, which is what makes swapping between OpenAI, Anthropic, and Google models a config change instead of a rewrite.",
+      "A FastAPI service indexes the vault and stores embeddings in Postgres with pgvector. The Next.js client is generated from the service's OpenAPI schema, so an API change fails the build instead of failing in production. Model providers share one interface, so switching between OpenAI, Anthropic, and Google is a config change.",
   },
   {
     slug: "mandate-zero",
     name: "Mandate Zero",
     description:
-      "Deterministic turn-based crisis simulation with seeded runs, multilingual support, and optional authentication.",
-    tagline: "A deterministic, turn-based crisis simulation — same seed, same run, every time.",
+      "A turn-based crisis simulation. Runs are seeded, so the same seed always plays out the same way.",
     overview:
-      "A turn-based strategy simulation where you steer an escalating crisis. It's fully deterministic: the same seed always reproduces the same run, which keeps the simulation reproducible and testable. Multilingual support and optional auth sit on top without compromising that determinism.",
+      "You manage an escalating crisis one turn at a time. The simulation is deterministic: a seed fully decides a run, which makes runs replayable and the logic testable. It supports several languages and optional sign-in for saved runs.",
     highlights: [
-      "Deterministic core: an identical seed always produces an identical run.",
-      "Reproducible, replayable, and testable by construction.",
-      "Multilingual support layered on without breaking determinism.",
-      "Optional authentication for saved runs.",
+      "Same seed, same run, every time.",
+      "Multiple languages.",
+      "Optional sign-in to save runs.",
     ],
     type: "game",
     status: "live",
@@ -315,15 +266,13 @@ export const projects: Project[] = [
     cover: "/projects/mandate-zero/card.png",
     screenshots: [],
     featured: true,
-    recruiterHighlight: true,
     engineerNote:
-      "Fully deterministic: the same seed always produces the same run, which makes the simulation reproducible and testable. Adds multilingual support and optional auth on top without compromising that determinism.",
+      "The simulation is deterministic: the same seed always produces the same run, which makes it replayable and easy to test. Translations and optional auth sit outside the simulation core, so neither can affect a run.",
   },
 ]
 
 export const featuredProjects = projects.filter((p) => p.featured)
 
-/** How many featured projects the home page shows before "View all". */
 export const HOME_PROJECT_COUNT = 6
 
 export function getProject(slug: string): Project | undefined {

@@ -14,7 +14,7 @@ export function Resume() {
     <section className="space-y-10">
       <header className="flex flex-wrap items-end justify-between gap-4 border-b border-border/60 pb-5">
         <div>
-          <h2 className="font-serif text-2xl tracking-tight md:text-3xl">{resume.name}</h2>
+          <h1 className="font-serif text-4xl tracking-tight md:text-5xl">{resume.name}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {resume.title} · {resume.location}
           </p>

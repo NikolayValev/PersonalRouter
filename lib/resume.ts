@@ -1,5 +1,4 @@
-// Structured resume data rendered on /recruiters by components/resume.tsx.
-// Specifics flagged with TODO are placeholders — fill them with real values.
+// Resume data rendered on /recruiters by components/resume.tsx.
 
 export interface ResumeExperience {
   role: string
@@ -44,7 +43,7 @@ export const resume: Resume = {
   title: "Software Engineer",
   location: "New York metro area",
   summary:
-    "Frontend-leaning software engineer with full-stack range. At Medscape I build and maintain a Vue 3 design system that spans a dozen sites; on my own time I ship side projects end to end — games, a fixed-income terminal, and the design system this site runs on.",
+    "Frontend engineer with full-stack experience. At Medscape I build and maintain a Vue 3 design system used across a dozen sites. Outside work I build and run my own projects, from games to a bond-pricing tool to the component library this site uses.",
   skills: [
     {
       label: "Languages",
@@ -56,15 +55,15 @@ export const resume: Resume = {
     },
     {
       label: "Tooling",
-      items: ["Git", "GitLab CI/CD", "Webpack", "Vite", "Turborepo", "Jest", "REST", "gRPC", "WCAG"],
+      items: ["Git", "GitLab CI/CD", "Webpack", "Vite", "Turborepo", "Jest", "Playwright", "REST", "gRPC", "WCAG"],
     },
     {
       label: "Cloud & data",
       items: ["AWS", "Firebase", "PostgreSQL", "MongoDB", "DynamoDB", "S3", "GraphQL"],
     },
     {
-      label: "AI tooling",
-      items: ["Cline", "MCP", "Claude API"],
+      label: "AI",
+      items: ["Claude API", "MCP", "RAG", "pgvector"],
     },
   ],
   experience: [
@@ -114,5 +113,6 @@ export const resume: Resume = {
     { label: "LinkedIn", href: "https://linkedin.com/in/nikolayvalev" },
     { label: "Email", href: "mailto:hello@nikolayvalev.com" },
   ],
-  pdfUrl: "/nikolay-valev-resume.pdf",
+  // No PDF is committed yet. Add one to /public and set its path here to show the download button.
+  pdfUrl: null,
 }
