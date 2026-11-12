@@ -1,4 +1,4 @@
-// Resume data rendered on /recruiters by components/resume.tsx.
+// Resume data rendered on /resume by components/resume.tsx.
 
 export interface ResumeExperience {
   role: string

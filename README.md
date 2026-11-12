@@ -8,10 +8,12 @@ Next.js (App Router), React 19, Tailwind v4, built on
 | Route | What's there |
 |---|---|
 | `/` | Intro and featured projects |
-| `/work` | All projects, filterable by type |
-| `/work/[slug]` | One page per project |
-| `/recruiters` | Resume |
-| `/engineers` | How each project is built |
+| `/projects` | All projects, filterable by type |
+| `/projects/[slug]` | One page per project |
+| `/resume` | Resume |
+| `/engineering` | How each project is built |
+
+`/work`, `/recruiters`, and `/engineers` redirect to the new paths.
 
 Project data lives in `lib/projects.ts`, resume data in `lib/resume.ts`. Screenshots go in
 `public/projects/<slug>/`.

@@ -14,7 +14,7 @@ export default function HomePage() {
           the side, most of which are live below.
         </p>
         <div className="mt-7 flex flex-wrap gap-2.5">
-          <Link href="/recruiters">
+          <Link href="/resume">
             <Button size="sm">Resume</Button>
           </Link>
           <Link href="mailto:hello@nikolayvalev.com">
@@ -28,7 +28,7 @@ export default function HomePage() {
       <section className="mt-16 md:mt-24">
         <div className="mb-6 flex items-baseline justify-between">
           <h2 className="font-serif text-2xl tracking-tight md:text-3xl">Projects</h2>
-          <Link href="/work" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+          <Link href="/projects" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             All projects →
           </Link>
         </div>

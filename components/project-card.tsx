@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
 import { ProjectCover } from "@/components/project-cover"
 import { STATUS_LABELS, TYPE_LABELS, type Project } from "@/lib/projects"
@@ -39,17 +39,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
 
-          <div className="mt-2.5 flex items-start justify-between gap-2">
+          <div className="mt-2.5">
             {/* Stretched link: the whole card opens the detail page; Visit/Source sit above it (z-10). */}
             <CardTitle className="font-serif text-xl">
               <Link
-                href={`/work/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="transition-colors after:absolute after:inset-0 group-hover:text-[var(--vde-color-accent)]"
               >
                 {project.name}
               </Link>
             </CardTitle>
-            <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all group-hover:text-[var(--vde-color-accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
 
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">

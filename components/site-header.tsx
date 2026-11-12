@@ -4,9 +4,9 @@ import { Logo } from "@/components/logo"
 import { SiteFooter } from "@/components/site-footer"
 
 const nav = [
-  { href: "/work", label: "Work" },
-  { href: "/recruiters", label: "Resume" },
-  { href: "/engineers", label: "Engineering" },
+  { href: "/projects", label: "Projects" },
+  { href: "/resume", label: "Resume" },
+  { href: "/engineering", label: "Engineering" },
 ]
 
 export function SiteHeader({ current }: { current?: string }) {

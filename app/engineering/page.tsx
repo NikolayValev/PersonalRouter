@@ -5,19 +5,16 @@ import { projects, TYPE_LABELS } from "@/lib/projects"
 
 export const metadata: Metadata = {
   title: "Engineering | Nikolay Valev",
-  description: "How each project is built, and why.",
+  description: "How each project is built.",
 }
 
 const annotatedProjects = projects.filter((project) => project.engineerNote)
 
 export default function EngineersPage() {
   return (
-    <PageShell current="/engineers">
+    <PageShell current="/engineering">
       <div className="max-w-2xl">
-        <h1 className="font-serif text-4xl tracking-tight md:text-5xl">Engineering notes</h1>
-        <p className="mt-4 text-sm leading-relaxed text-foreground/80 md:text-base">
-          A paragraph per project on how it&apos;s built and why. Source is linked for each one.
-        </p>
+        <h1 className="font-serif text-4xl tracking-tight md:text-5xl">Engineering</h1>
       </div>
 
       <div className="mt-12 divide-y divide-border/60 border-t border-border/60">
@@ -25,7 +22,7 @@ export default function EngineersPage() {
           <article key={project.slug} className="py-8 md:grid md:grid-cols-[13rem_1fr] md:gap-8">
             <div>
               <h2 className="font-serif text-xl">
-                <Link href={`/work/${project.slug}`} className="transition-colors hover:text-[var(--vde-color-accent)]">
+                <Link href={`/projects/${project.slug}`} className="transition-colors hover:text-[var(--vde-color-accent)]">
                   {project.name}
                 </Link>
               </h2>

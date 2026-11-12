@@ -26,7 +26,7 @@ export interface Project {
   imageOrientation?: "landscape" | "portrait"
   /** Shown on the home page and the recruiters page. */
   featured: boolean
-  /** Implementation notes for /engineers. */
+  /** Implementation notes for /engineering. */
   engineerNote?: string
 }
 
