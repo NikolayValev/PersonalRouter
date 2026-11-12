@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/design-system/components/Button"
+import { Moon, Sun } from "lucide-react"
 
 const subscribe = () => () => {}
 
@@ -13,27 +13,17 @@ function useHydrated() {
 export function ThemeToggle() {
   const hydrated = useHydrated()
   const { resolvedTheme, setTheme } = useTheme()
-
-  if (!hydrated) {
-    return (
-      <Button type="button" variant="outline" size="sm" aria-label="Toggle theme" disabled>
-        Theme
-      </Button>
-    )
-  }
-
-  const isDark = resolvedTheme === "dark"
-  const nextTheme = isDark ? "light" : "dark"
+  const isDark = hydrated && resolvedTheme === "dark"
 
   return (
-    <Button
+    <button
       type="button"
-      variant="outline"
-      size="sm"
-      aria-label={`Switch to ${nextTheme} mode`}
-      onClick={() => setTheme(nextTheme)}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      disabled={!hydrated}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
     >
-      {`Theme: ${isDark ? "Dark" : "Light"}`}
-    </Button>
+      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </button>
   )
 }

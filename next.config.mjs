@@ -20,6 +20,15 @@ const nextConfig = {
   skipTrailingSlashRedirect: true,
   // Same-origin proxy for PostHog ingestion so ad blockers do not drop events.
   // Only ingestion and its static assets are proxied; the dashboard is not.
+  // Old paths, kept working for links already shared.
+  async redirects() {
+    return [
+      { source: "/work", destination: "/projects", permanent: true },
+      { source: "/work/:slug", destination: "/projects/:slug", permanent: true },
+      { source: "/recruiters", destination: "/resume", permanent: true },
+      { source: "/engineers", destination: "/engineering", permanent: true },
+    ]
+  },
   async rewrites() {
     return [
       {

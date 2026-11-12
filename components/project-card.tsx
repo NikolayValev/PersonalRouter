@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/design-system/components/Card"
 import { ProjectCover } from "@/components/project-cover"
 import { STATUS_LABELS, TYPE_LABELS, type Project } from "@/lib/projects"
@@ -12,18 +12,10 @@ interface ProjectCardProps {
 /** Tags past this point collapse into a "+N" chip, keeping the row to one line. */
 const VISIBLE_TAGS = 3
 
-/**
- * Status is carried by a single dot rather than a colored badge — the site runs
- * on one accent, so shape does the work colour would normally do: filled for
- * live, hollow for in-progress, muted for a demo.
- */
+/** Filled dot for live, hollow for in progress, so status doesn't rely on color alone. */
 function StatusDot({ status }: { status: Project["status"] }) {
   const style =
-    status === "live"
-      ? "bg-[var(--vde-color-accent)]"
-      : status === "wip"
-        ? "border border-[var(--vde-color-accent)] bg-transparent"
-        : "bg-muted-foreground/50"
+    status === "live" ? "bg-[var(--vde-color-accent)]" : "border border-[var(--vde-color-accent)] bg-transparent"
 
   return <span aria-hidden className={`size-1.5 shrink-0 rounded-full ${style}`} />
 }
@@ -35,8 +27,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Card className="group flex h-full flex-col overflow-hidden transition-colors hover:border-[var(--vde-color-accent)]">
       <ProjectCover project={project} />
 
-      {/* One wrapper child so CardHeader's own space-y-1.5 never fights the
-          margins below. */}
       <CardHeader>
         <div>
           <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
@@ -45,25 +35,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <span aria-hidden className="text-border">/</span>
             <span>{TYPE_LABELS[project.type]}</span>
             {project.active && (
-              <span className="rounded-sm border border-[var(--vde-color-accent)]/50 px-1.5 py-px text-[10px] tracking-[0.12em] text-[var(--vde-color-accent)]">
-                Active
-              </span>
+              <span className="ml-auto text-[var(--vde-color-accent)]">Active</span>
             )}
-            <span className="ml-auto tabular-nums">{project.year}</span>
           </div>
 
-          <div className="mt-2.5 flex items-start justify-between gap-2">
-            {/* Stretched link: makes the whole card open the detail page, while the
-                Live/Source links below stay independently clickable (z-10). */}
+          <div className="mt-2.5">
+            {/* Stretched link: the whole card opens the detail page; Visit/Source sit above it (z-10). */}
             <CardTitle className="font-serif text-xl">
               <Link
-                href={`/work/${project.slug}`}
+                href={`/projects/${project.slug}`}
                 className="transition-colors after:absolute after:inset-0 group-hover:text-[var(--vde-color-accent)]"
               >
                 {project.name}
               </Link>
             </CardTitle>
-            <ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all group-hover:text-[var(--vde-color-accent)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </div>
 
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] overflow-hidden">

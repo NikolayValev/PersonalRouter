@@ -18,7 +18,7 @@ interface TrackedProjectLinkProps {
  * Outbound project link that reports the click to PostHog.
  *
  * Kept as its own client component so ProjectCard stays server-renderable --
- * it is imported from both server pages (app/page.tsx, app/recruiters/page.tsx)
+ * it is imported from both server pages (app/page.tsx, app/resume/page.tsx)
  * and a client one (components/work-grid.tsx).
  */
 export function TrackedProjectLink({
