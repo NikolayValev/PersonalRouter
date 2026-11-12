@@ -38,6 +38,8 @@ export interface Project {
    */
   imageOrientation?: "landscape" | "portrait"
   featured: boolean
+  /** Under active development right now; flagged on the card and detail page. */
+  active?: boolean
   /** Surface this project in the recruiter "Selected projects" grid. */
   recruiterHighlight?: boolean
   /** A deeper technical note shown on /engineers. */
@@ -63,6 +65,51 @@ export const TYPE_LABELS: Record<ProjectType, string> = {
  * (see HOME_PROJECT_COUNT), /work shows all of them.
  */
 export const projects: Project[] = [
+  {
+    slug: "agora",
+    name: "Agora",
+    description:
+      "A mobile app for reading the great philosophers yourself: primary texts, argument maps you build from them, a Socratic tutor that can't invent a quote, and spaced review.",
+    tagline: "Read the great philosophers yourself, with a tutor that questions you instead of answering for you.",
+    overview:
+      "A mobile app for curious adults built around a ten-to-fifteen-minute loop: read a short public-domain passage, map its argument from a deck of claim cards, defend the map with a Socratic tutor, and let spaced review bring the ideas back before you forget them. The first track, Socrates & the Stoics, covers nine sessions from the Euthyphro to Marcus Aurelius. Under the hood it is local-first, with a sync protocol designed so it cannot conflict.",
+    highlights: [
+      "Read, map, defend, remember: one session loop over cited, paragraph-by-paragraph public-domain translations.",
+      "An argument-map grader that marks each placement like a tutor would: right, one step removed, misplaced, or not part of this argument.",
+      "A tutor that cannot show a fabricated quote: every quotation is checked against the cited passage on the server, repaired, re-cited, or removed before the learner sees it.",
+      "Adversarial evals in CI: a stand-in model that fabricates, misattributes, and leaks answers on purpose across 78 scenarios, with 0 unsafe replies shown.",
+      "Local-first on SQLite (native, or WebAssembly on the web) with offline support; replicated data is grow-only sets or last-writer-wins registers on a hybrid logical clock.",
+      "FSRS review state is never synced. Each device replays review events, so phones that reviewed offline converge on the same schedule.",
+      "Migrations, row-level security, and sync RPCs tested in PGlite as Supabase's authenticated role; about 210 tests in all.",
+    ],
+    type: "app",
+    status: "live",
+    year: 2026,
+    tags: ["Expo", "React Native", "TypeScript", "FastAPI", "Supabase", "SQLite", "Claude"],
+    liveUrl: "https://agora.nikolayvalev.com/",
+    sourceUrl: "https://github.com/NikolayValev/Agora",
+    cover: "/projects/agora/loop.png",
+    screenshots: ["/projects/agora/loop.png", "/projects/agora/app.png", "/projects/agora/dark.png"],
+    featured: true,
+    active: true,
+    recruiterHighlight: true,
+    engineerNote:
+      "The tutor may only quote by citing a segment, and the server verifies every quotation against that text before the client renders it: exact, repaired to the translation's wording, re-cited, or stripped. It also blocks replies that give away a step the learner hasn't found, retrying once and then falling back to a scripted tutor. Data is local-first with a sync protocol that can't conflict: grow-only sets and LWW registers on a hybrid logical clock, two Postgres functions behind a per-user advisory lock, and FSRS state derived on each device by replaying review events. A seeded randomised test runs three devices with skewed clocks through offline periods and asserts they end identical.",
+  },
+  {
+    slug: "cultivator",
+    name: "Cultivator",
+    description: "A game built in Godot and exported to WebAssembly, playable in the browser.",
+    tagline: "A Godot game, playable in the browser.",
+    type: "game",
+    status: "live",
+    year: 2026,
+    tags: ["Godot", "WebAssembly", "Vercel"],
+    liveUrl: "https://cultivator.nikolayvalev.com/",
+    screenshots: [],
+    featured: true,
+    active: true,
+  },
   {
     slug: "idle-dungeon-life",
     name: "Idle Dungeon Life",
