@@ -73,6 +73,37 @@ export const projects: Project[] = [
       "The model can only quote by citing a segment ID. Before a reply reaches the client, the server finds each quotation in the cited text and either keeps it, repairs it to the translation's wording, re-cites it, or strips it. Replies that give away a step the learner hasn't reached are retried once, then replaced by a scripted tutor. On the data side, every write goes to on-device SQLite first. Replicated tables are grow-only sets or last-writer-wins registers stamped with a hybrid logical clock, and review state is derived on each device from the event log rather than synced. A seeded randomised test runs three devices with skewed clocks through offline periods and checks that they converge.",
   },
   {
+    slug: "cultivator",
+    name: "Cultivator",
+    description:
+      "A cultivation game about one life at a time. Draw a technique you can't reroll, swear to a guild, and build up a sect that outlasts you.",
+    overview:
+      "Each life starts with a single draw from a pool of breathing techniques, ranked from Trash to Broken. Whatever you pull sets your stats and how fast you gather qi, and it can't be traded or rerolled. You then swear to a guild, which decides the resource you gather for the rest of that life. What you raise for one of seven sects stays standing after you die, so later lives build on earlier ones.",
+    highlights: [
+      "One technique per life, from Trash to Broken, with no rerolls. Draws bank up over real time, six at most.",
+      "A technique you don't want can be recycled into fodder instead of played.",
+      "Six guilds, each tied to one resource: spirit grain, ore, abyss catch, herbs, and more.",
+      "Seven sects with permanent buildings that carry over between lives.",
+      "Pixel-art scenes, built in Godot and exported to WebAssembly for the browser.",
+    ],
+    type: "game",
+    status: "live",
+    active: true,
+    year: 2026,
+    tags: ["Godot", "WebAssembly"],
+    liveUrl: "https://cultivator.nikolayvalev.com/",
+    cover: "/projects/cultivator/03-guild.png",
+    cardImage: "/projects/cultivator/card.png",
+    screenshots: [
+      "/projects/cultivator/01-draw.png",
+      "/projects/cultivator/02-technique.png",
+      "/projects/cultivator/03-guild.png",
+      "/projects/cultivator/04-legacy.png",
+    ],
+    imageOrientation: "portrait",
+    featured: true,
+  },
+  {
     slug: "idle-dungeon-life",
     name: "Idle Dungeon Life",
     description:
@@ -132,19 +163,6 @@ export const projects: Project[] = [
     featured: true,
     engineerNote:
       "No component hardcodes a color. Everything reads semantic CSS variables defined in OKLCH, so switching between the twelve themes only swaps variables. Alongside the npm package, a hosted MCP server serves the component catalog so a coding agent can install components into a project. This site consumes the package and overrides a handful of variables for its own palette.",
-  },
-  {
-    slug: "cultivator",
-    name: "Cultivator",
-    description: "A Godot game exported to WebAssembly. Plays in the browser.",
-    type: "game",
-    status: "live",
-    active: true,
-    year: 2026,
-    tags: ["Godot", "WebAssembly"],
-    liveUrl: "https://cultivator.nikolayvalev.com/",
-    screenshots: [],
-    featured: true,
   },
   {
     slug: "bondviz",
